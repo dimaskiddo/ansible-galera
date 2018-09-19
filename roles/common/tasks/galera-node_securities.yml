@@ -1,0 +1,43 @@
+---
+- name: Create MariaDB Root Account 
+  mysql_user:
+    login_user: root
+    login_password: "{{ mariadb_admin_password }}"
+    check_implicit_admin: yes
+    name: root
+    password: "{{ mariadb_admin_password }}"
+    priv: "*.*:ALL,GRANT"
+    host: "{{ item }}"
+  with_items:
+    - "{{ galera_ip }}"
+    - "127.0.0.1"
+    - "::1"
+    - localhost
+
+- name: Create MariaDB HAProxy Account for Health Check
+  mysql_user:
+    login_user: root
+    login_password: "{{ mariadb_admin_password }}"
+    check_implicit_admin: yes
+    name: haproxy
+    host: "{{ item }}"
+  with_items:
+    - "{{ groups['galera-lb'].galera_ip }}"
+    - "{{ galera_ip }}"
+    - "127.0.0.1"
+    - "::1"
+    - localhost
+
+- name: Remove MariaDB Anonymous Account
+  mysql_user: 
+    login_user: root
+    login_password: "{{ mariadb_admin_password }}"
+    check_implicit_admin: yes
+    user: ""
+    host: "{{ item }}"
+    state: "absent"
+  with_items:
+    - "{{ galera_ip }}"
+    - "127.0.0.1"
+    - "::1"
+    - localhost
