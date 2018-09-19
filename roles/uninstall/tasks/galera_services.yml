@@ -15,7 +15,7 @@
   when:
     - mariadb_service_info.stdout.find("not-found") == -1
  
- - name: Reload MariaDB Service
+- name: Reload MariaDB Service
   systemd:
     daemon_reload: yes
   when:
