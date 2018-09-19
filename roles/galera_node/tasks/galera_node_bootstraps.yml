@@ -1,9 +1,5 @@
 ---
-- name: Boostrap Galera Galera Cluster in First Node
-  shell: galera_new_cluster
-  run_once: true
-
-- name: Get Galera Service Info
+- name: Get Galera Service Info on The First Node
   shell: service mysql status | grep not-found || true
   args:
     warn: false
@@ -11,7 +7,22 @@
   when:
     - service_init_status.stat.exists
 
-- name: Enable Galera Service
+- name: Boostrap Galera Cluster on Galera Service for Version 5.5 and 5.6 on The First Node
+  shell: service mysql start --wsrep-new-cluster || true
+  args:
+    warn: false
+  when:
+    - galera_service_info.stdout.find("not-found") == -1
+    - galera_minor_version == '5' or galera_minor_version == '6'
+  run_once: true
+
+- name: Boostrap Galera Cluster on Galera Service for Version 5.7 on The First Node
+  shell: mysqld_bootstrap
+  when:
+    - galera_minor_version == '7'
+  run_once: true
+
+- name: Enable Galera Service on The First Node
   service:
     name: mysql
     enabled: yes
@@ -20,7 +31,7 @@
     - galera_service_info.stdout.find("not-found") == -1
   run_once: true
 
-- name: Wait For Galera Service
+- name: Wait For Galera Service on The First Node
   wait_for:
     port: 3306
     timeout: 15
