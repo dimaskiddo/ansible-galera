@@ -4,7 +4,7 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - /etc/mysql/conf.d/tweaks.cnf
+    - /etc/mysql/conf.d/tunning.cnf
     - /etc/mysql/conf.d/galera.cnf
 
 - name: Find Exsisting MariaDB Logs

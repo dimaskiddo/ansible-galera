@@ -1,4 +1,18 @@
 ---
+- name: Find Exsisting HAProxy Logs
+  find:
+    paths: /var/log
+    patterns: "haproxy*"
+    use_regex: true
+  register: haproxy_logs
+
+- name: Remove Exsisting HAProxy Logs
+  file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items:
+    - "{{ haproxy_logs['files'] }}"
+
 - name: Find Exsisting HAProxy Scripts
   find:
     paths: /tmp
