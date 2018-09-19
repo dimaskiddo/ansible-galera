@@ -18,9 +18,10 @@
   service:
     name: mariadb
     enabled: yes
-    state: started
+    state: restarted
   when:
     - mariadb_service_info.stdout.find("not-found") == -1
+    - inventory_hostname != groups['galera_node'] | first
 
 - name: Wait For MariaDB Service
   wait_for:
@@ -29,3 +30,5 @@
     connect_timeout: 3
     delay: 5
     state: present
+  when:
+    - inventory_hostname != groups['galera_node'] | first
