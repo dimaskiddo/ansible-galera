@@ -29,5 +29,3 @@
     connect_timeout: 3
     delay: 5
     state: present
-  when:
-    - inventory_hostname != groups['galera_node'] | first
