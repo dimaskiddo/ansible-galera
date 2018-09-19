@@ -1,0 +1,16 @@
+---
+- name: Generate MariaDB Tweak Configuration
+  template:
+    src: tweaks.cnf.j2
+    dest: /etc/mysql/conf.d/tweaks.cnf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Generate MariaDB Galera Configuration
+  template:
+    src: galera.cnf.j2
+    dest: /etc/mysql/conf.d/galera.cnf
+    owner: root
+    group: root
+    mode: 0644
