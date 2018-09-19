@@ -1,8 +1,8 @@
 ---
-- name: Generate MariaDB Tweak Configuration
+- name: Generate MariaDB Tunning Configuration
   template:
-    src: tweaks.cnf.j2
-    dest: /etc/mysql/conf.d/tweaks.cnf
+    src: tunning.cnf.j2
+    dest: /etc/mysql/conf.d/tunning.cnf
     owner: root
     group: root
     mode: 0644
