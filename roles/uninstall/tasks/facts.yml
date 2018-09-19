@@ -50,4 +50,4 @@
     zfs_backend: 'false'
   when:
     - zfs_backend
-    - inventory_hostname in groups['galera-lb']
+    - inventory_hostname in groups['galera_lb']
