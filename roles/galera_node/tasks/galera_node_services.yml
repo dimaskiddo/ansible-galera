@@ -1,29 +1,29 @@
 ---
-- name: Reload MariaDB Service
+- name: Reload Galera Service
   systemd:
     daemon_reload: yes
   when:
     - service_init_status.stat.islnk is defined
     - service_init_status.stat.islnk
 
-- name: Get MariaDB Service Info
-  shell: service mariadb status | grep not-found || true
+- name: Get Galera Service Info
+  shell: service mysql status | grep not-found || true
   args:
     warn: false
-  register: mariadb_service_info
+  register: galera_service_info
   when:
     - service_init_status.stat.exists
 
-- name: Enable MariaDB Service
+- name: Enable Galera Service
   service:
-    name: mariadb
+    name: mysql
     enabled: yes
     state: restarted
   when:
-    - mariadb_service_info.stdout.find("not-found") == -1
+    - galera_service_info.stdout.find("not-found") == -1
     - inventory_hostname != groups['galera_node'] | first
 
-- name: Wait For MariaDB Service
+- name: Wait For Galera Service
   wait_for:
     port: 3306
     timeout: 15

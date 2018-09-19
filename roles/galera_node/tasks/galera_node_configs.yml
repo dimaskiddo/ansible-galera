@@ -1,5 +1,5 @@
 ---
-- name: Generate MariaDB Tunning Configuration
+- name: Generate Galera Tunning Configuration
   template:
     src: tunning.cnf.j2
     dest: /etc/mysql/conf.d/tunning.cnf
@@ -7,7 +7,7 @@
     group: root
     mode: 0644
 
-- name: Generate MariaDB Galera Configuration
+- name: Generate Galera Galera Configuration
   template:
     src: galera.cnf.j2
     dest: /etc/mysql/conf.d/galera.cnf

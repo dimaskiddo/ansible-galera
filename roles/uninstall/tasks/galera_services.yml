@@ -1,21 +1,21 @@
 ---
-- name: Get MariaDB Service Info
-  shell: service mariadb status | grep not-found || true
+- name: Get Galera Service Info
+  shell: service mysql status | grep not-found || true
   args:
     warn: false
-  register: mariadb_service_info
+  register: galera_service_info
   when:
     - service_init_status.stat.exists
 
-- name: Disable MariaDB Node Service
+- name: Disable Galera Node Service
   service:
-    name: mariadb
+    name: mysql
     enabled: no
     state: stopped
   when:
-    - mariadb_service_info.stdout.find("not-found") == -1
+    - galera_service_info.stdout.find("not-found") == -1
  
-- name: Reload MariaDB Service
+- name: Reload Galera Service
   systemd:
     daemon_reload: yes
   when:

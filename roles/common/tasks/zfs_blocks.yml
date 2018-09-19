@@ -6,7 +6,7 @@
     - not zfs_block_wipe
     - zfs_block_info.partitions | length > 0
 
-- name: Clean ZFS Block Device for MariaDB
+- name: Clean ZFS Block Device for Galera
   parted:
     device: "/dev/{{ zfs_block_device }}"
     number: "{{ item.num }}"
@@ -17,7 +17,7 @@
     - zfs_block_wipe
     - zfs_block_info.partitions | length > 0
 
-- name: Create ZFS Block Device Partition for MariaDB
+- name: Create ZFS Block Device Partition for Galera
   parted:
     device: "/dev/{{ zfs_block_device }}"
     number: 1
@@ -43,13 +43,13 @@
     - not zfs_pool_wipe
     - zfs_pool_lists.stdout.find(zfs_pool_name) != -1
 
-- name: Remove ZFS Pool for MariaDB
+- name: Remove ZFS Pool for Galera
   shell: zpool destroy -f {{ zfs_pool_name }}
   when:
     - zfs_pool_wipe
     - zfs_pool_lists.stdout.find(zfs_pool_name) != -1
 
-- name: Create ZFS Pool for MariaDB
+- name: Create ZFS Pool for Galera
   shell: zpool create {{ zfs_pool_name }} -o ashift=12 -O compression=lz4 /dev/{{ zfs_block_device }}1
   when:
     - zfs_pool_lists.stdout.find(zfs_pool_name) == -1
@@ -63,28 +63,28 @@
     msg: "ZFS Dataset Already Exists, Please Remove The Dataset Manually!"
   when:
     - not zfs_dataset_wipe
-    - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mariadb") != -1
+    - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mysql") != -1
 
-- name: Remove ZFS Dataset for MariaDB
-  shell: zfs destroy -fR {{ zfs_pool_name }}/mariadb
+- name: Remove ZFS Dataset for Galera
+  shell: zfs destroy -fR {{ zfs_pool_name }}/mysql
   when:
     - not zfs_dataset_wipe
-    - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mariadb") != -1
+    - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mysql") != -1
 
-- name: Create ZFS Dataset for MariaDB
-  shell: zfs create -s -o volblocksize=64k -V {{ zfs_partition_info.disk.size }}M {{ zfs_pool_name }}/mariadb
+- name: Create ZFS Dataset for Galera
+  shell: zfs create -s -o volblocksize=64k -V {{ zfs_partition_info.disk.size }}M {{ zfs_pool_name }}/mysql
   when:
-    - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mariadb") == -1
+    - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mysql") == -1
 
-- name: Get ZFS Dataset Device Status for MariaDB
+- name: Get ZFS Dataset Device Status for Galera
   stat:
-    path: "/dev/zvol/{{ zfs_pool_name }}/mariadb"
-  register: zfs_dataset_mongo_status
+    path: "/dev/zvol/{{ zfs_pool_name }}/mysql"
+  register: zfs_dataset_galera_status
 
-- name: Format ZFS Dataset Device for MariaDB
+- name: Format ZFS Dataset Device for Galera
   filesystem:
-    dev: "/dev/zvol/{{ zfs_pool_name }}/mariadb"
+    dev: "/dev/zvol/{{ zfs_pool_name }}/mysql"
     fstype: xfs
     force: yes
   when:
-    - zfs_dataset_mongo_status.stat.exists
+    - zfs_dataset_galera_status.stat.exists

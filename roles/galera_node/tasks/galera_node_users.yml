@@ -1,5 +1,5 @@
 ---
-- name: Create MariaDB Root User (Local)
+- name: Create Galera Root User (Local)
   mysql_user:
     name: root
     password: "{{ galera_root_password }}"
@@ -12,7 +12,7 @@
     - "localhost"
   run_once: true
 
-- name: Create MariaDB Root User (Node)
+- name: Create Galera Root User (Node)
   mysql_user:
     login_user: root
     login_password: "{{ galera_root_password }}"
@@ -24,7 +24,7 @@
     - "{{ groups['galera_node'] }}"
   run_once: true
 
-- name: Create MariaDB Admin User 
+- name: Create Galera Admin User 
   mysql_user:
     login_user: root
     login_password: "{{ galera_root_password }}"
@@ -36,7 +36,7 @@
     - "%"
   run_once: true
 
-- name: Create MariaDB HAProxy User for Health Check (Local)
+- name: Create Galera HAProxy User for Health Check (Local)
   mysql_user:
     login_user: root
     login_password: "{{ galera_root_password }}"
@@ -48,7 +48,7 @@
     - "localhost"
   run_once: true
 
-- name: Create MariaDB HAProxy User for Health Check (Node)
+- name: Create Galera HAProxy User for Health Check (Node)
   mysql_user:
     login_user: root
     login_password: "{{ galera_root_password }}"
@@ -58,7 +58,7 @@
     - "{{ groups['galera_lb'] }}"
   run_once: true
 
-- name: Remove MariaDB Test Database
+- name: Remove Galera Test Database
   mysql_db:
     login_user: root
     login_password: "{{ galera_root_password }}"

@@ -1,11 +1,11 @@
 ---
-- name: Remove MariaDB User
+- name: Remove Galera User
   user:
     name: mysql
     force: yes
     state: absent
 
-- name: Remove MariaDB Group
+- name: Remove Galera Group
   group:
     name: mysql
     state: absent

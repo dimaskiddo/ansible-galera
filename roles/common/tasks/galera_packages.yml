@@ -1,18 +1,13 @@
 ---
-- name: Install MariaDB Keyring
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: '0xF1656F24C74CD1D8'
-    state: present
+- name: Install Galera Repository
+  template:
+    src: galera.list.j2
+    dest: "/etc/apt/sources.list.d/galera.list"
+    owner: root
+    group: root
+    mode: 0644
 
-- name: Install MariaDB Repository
-  lineinfile:
-    dest: "/etc/apt/sources.list.d/mariadb-{{ galera_version_major }}.{{ galera_version_minor }}.list"
-    line: "deb [arch=amd64] {{ galera_repository_url }}{{ galera_version_major }}.{{ galera_version_minor }}/ubuntu {{ ansible_distribution_release }} main"
-    create: yes
-    state: present
-
-- name: Install MariaDB Server Packages
+- name: Install Galera Server Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -21,11 +16,13 @@
     autoclean: yes
     state: present
   with_items:
-    - mariadb-server
+    - mysql-server
+    - mysql-wsrep-{{ galera_major_version }}.{{ galera_minor_version }}
+    - galera-3
   when:
     - inventory_hostname in groups['galera_node']
 
-- name: Install MariaDB Client Packages
+- name: Install Galera Client Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -34,4 +31,4 @@
     autoclean: yes
     state: present
   with_items:
-    - mariadb-client
+    - mysql-client

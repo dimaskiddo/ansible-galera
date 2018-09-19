@@ -1,5 +1,5 @@
 ---
-- name: Uninstall MariaDB Server Packages
+- name: Uninstall Galera Client Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -8,27 +8,24 @@
     purge: yes
     state: absent
   with_items:
-    - mariadb-server
+    - mysql-client
+
+- name: Uninstall Galera Server Packages
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    autoremove: yes
+    autoclean: yes
+    purge: yes
+    state: absent
+  with_items:
+    - mysql-server
+    - mysql-wsrep-{{ galera_major_version }}.{{ galera_minor_version }}
+    - galera-3
   when:
     - inventory_hostname in groups['galera_node']
 
-- name: Uninstall MariaDB Client Packages
-  apt:
-    name: "{{ item }}"
-    force_apt_get: yes
-    autoremove: yes
-    autoclean: yes
-    purge: yes
-    state: absent
-  with_items:
-    - mariadb-client
-
-- name: Uninstall MariaDB Repository
+- name: Uninstall Galera Repository
   file:
-    path: "/etc/apt/sources.list.d/mariadb-{{ galera_version_major }}.{{ galera_version_minor }}.list"
-    state: absent
-
-- name: Uninstall MariaDB Keyring
-  apt_key:
-    id: '0xF1656F24C74CD1D8'
+    path: "/etc/apt/sources.list.d/galera.list"
     state: absent

@@ -1,8 +1,8 @@
 ---
-- name: Mount ZFS Dataset to MariaDB Directory
+- name: Mount ZFS Dataset to Galera Directory
   mount:
     path: /var/lib/mysql
-    src: "/dev/zvol/{{ zfs_pool_name }}/mariadb"
+    src: "/dev/zvol/{{ zfs_pool_name }}/mysql"
     fstype: xfs
     opts: defaults
     passno: 2

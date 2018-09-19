@@ -32,7 +32,6 @@
     galera_ip: "{{ galera_ip | default(defaul_value, true) }}"
     galera_version_major: "{{ galera_version_major | default(default_value, true) }}"
     galera_version_minor: "{{ galera_version_minor | default(default_value, true) }}"
-    galera_repository_url: "{{ galera_repository_url | default(default_value, true) }}"
     galera_root_password: "{{ galera_root_password | default(default_value, true) }}"
     galera_admin_username: "{{ galera_admin_username | default(default_value, true) }}"
     galera_admin_password: "{{ galera_admin_password | default(default_value, true) }}"

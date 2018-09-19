@@ -1,5 +1,5 @@
 ---
-- name: Remove MariaDB Parent Directories
+- name: Remove Galera Parent Directories
   file:
     path: "{{ item }}"
     state: absent

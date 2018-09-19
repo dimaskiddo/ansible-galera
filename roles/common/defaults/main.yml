@@ -2,25 +2,22 @@
 # Default Value for Host IP
 galera_ip: "{{ ansible_default_ipv4.address }}"
 
-# Default Value for MariaDB Galera Major Version
-galera_version_major: '10'
+# Default Value for Galera Major Version
+galera_version_major: '5'
 
-# Default Value for MariaDB Galera Minor Version
-galera_version_minor: '3'
+# Default Value for Galera Minor Version
+galera_version_minor: '7'
 
-# Default Value for MariaDB Galera Repository URL
-galera_repository_url: 'http://kartolo.sby.datautama.net.id/mariadb/repo/'
-
-# Default Value MariaDB Galera Root Password
+# Default Value Galera Root Password
 galera_root_password: 'root'
 
-# Default Value MariaDB Galera Admin User
+# Default Value Galera Admin User
 galera_admin_username: 'admin'
 
-# Default Value MariaDB Galera Admin Password
+# Default Value Galera Admin Password
 galera_admin_password: 'admin'
 
-# Default Value MariaDB Galera Cluster Name
+# Default Value Galera Cluster Name
 galera_cluster_name: 'galera'
 
 # Default Value for ZFS Backend Storage

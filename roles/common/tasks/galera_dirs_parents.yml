@@ -1,5 +1,5 @@
 ---
-- name: Create MariaDB Parent Directories
+- name: Create Galera Parent Directories
   file:
     path: "{{ item }}"
     state: directory
@@ -9,7 +9,7 @@
   with_items:
     - /var/lib/mysql
 
-- name: Create MariaDB Logs Directories
+- name: Create Galera Logs Directories
   file:
     path: "{{ item }}"
     state: directory
