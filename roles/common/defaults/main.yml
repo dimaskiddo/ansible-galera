@@ -8,6 +8,9 @@ galera_version_major: '10'
 # Default Value for MariaDB Galera Minor Version
 galera_version_minor: '3'
 
+# Default Value for MariaDB Galera Repository URL
+galera_repository_url: 'http://kartolo.sby.datautama.net.id/mariadb/repo/'
+
 # Default Value MariaDB Galera Root Password
 galera_root_password: 'root'
 

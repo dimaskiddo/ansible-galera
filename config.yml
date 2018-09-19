@@ -4,12 +4,12 @@
   roles:
   - role: common
 
-- hosts: galera-node
+- hosts: galera_node
   any_errors_fatal: true
   roles:
-  - role: galera-node
+  - role: galera_node
 
-- hosts: galera-lb
+- hosts: galera_lb
   any_errors_fatal: true
   roles:
-  - role: galera-lb
+  - role: galera_lb

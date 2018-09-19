@@ -5,11 +5,11 @@ galera_root_password=root
 galera_admin_username=admin
 galera_admin_password=admin
 
-[galera-node]
+[galera_node]
 10.10.250.13
 10.10.250.14
 10.10.250.15
 
-[galera-lb]
+[galera_lb]
 10.10.250.11
 10.10.250.12

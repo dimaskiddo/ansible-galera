@@ -10,7 +10,7 @@
   with_items:
     - mariadb-server
   when:
-    - inventory_hostname in groups['galera-node']
+    - inventory_hostname in groups['galera_node']
 
 - name: Uninstall MariaDB Client Packages
   apt:

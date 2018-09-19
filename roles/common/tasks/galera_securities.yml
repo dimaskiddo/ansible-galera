@@ -1,5 +1,5 @@
 ---
-- name: Create MariaDB Root Account 
+- name: Create MariaDB Root Account (Local)
   mysql_user:
     login_user: root
     login_password: "{{ galera_root_password }}"
@@ -13,6 +13,18 @@
     - "127.0.0.1"
     - "localhost"
 
+- name: Create MariaDB Root Account (Node)
+  mysql_user:
+    login_user: root
+    login_password: "{{ galera_root_password }}"
+    check_implicit_admin: yes
+    name: root
+    password: "{{ galera_root_password }}"
+    priv: "*.*:ALL,GRANT"
+    host: "{{ hostvars[item]['galera_ip'] }}"
+  with_items:
+    - "{{ groups['galera-node'] }}"
+
 - name: Create MariaDB Admin Account 
   mysql_user:
     login_user: root
@@ -23,9 +35,6 @@
     priv: "*.*:ALL,GRANT"
     host: "{{ item }}"
   with_items:
-    - "::1"
-    - "127.0.0.1"
-    - "localhost"
     - "%"
 
 - name: Create MariaDB HAProxy Account for Health Check (Local)

@@ -1,6 +1,0 @@
----
-- include: galera-node_configs.yml
-
-- include: galera-node_bootstraps.yml
-
-- include: galera-node_services.yml

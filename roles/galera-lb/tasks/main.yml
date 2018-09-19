@@ -1,4 +1,0 @@
----
-- include: galera-lb_configs.yml
-
-- include: galera-lb_services.yml

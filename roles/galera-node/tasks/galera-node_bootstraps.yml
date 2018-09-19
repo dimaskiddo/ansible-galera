@@ -1,4 +1,0 @@
----
-- name: Boostrap MariaDB Galera Cluster in First Node
-  shell: galera_new_cluster
-  run_once: true
