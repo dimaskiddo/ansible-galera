@@ -22,10 +22,10 @@
     autoclean: yes
     state: present
   with_items:
-    - mysql-server
-    - mysql-wsrep-{{ galera_version_major }}.{{ galera_version_minor }}
     - galera-3
-    - galera-arbitrator-3    
+    - galera-arbitrator-3
+    - mysql-wsrep-{{ galera_version_major }}.{{ galera_version_minor }}
+    - mysql-wsrep-server-{{ galera_version_major }}.{{ galera_version_minor }}
   when:
     - inventory_hostname in groups['galera_node']
 
@@ -38,4 +38,5 @@
     autoclean: yes
     state: present
   with_items:
-    - mysql-client
+    - mysql-wsrep-client-{{ galera_version_major }}.{{ galera_version_minor }}
+ 
