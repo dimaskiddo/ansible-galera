@@ -8,10 +8,9 @@ wsrep_node_address=127.0.0.1
 wsrep_cluster_name={{ galera_cluster_name }}
 {% set galera_hosts = '' %}
 {% for galera_host in groups['galera_node'] %}
-#{{ galera_hosts }} - {{ galera_host }}
 {%  if loop.last %}
 {%    set galera_hosts = galera_hosts + hostvars[galera_host].galera_ip %}
-wsrep_cluster_address="gcomm://{{ galera_hosts }}"
+wsrep_cluster_address=gcomm://{{ galera_hosts }}
 {%  else %}
 {%    set galera_hosts = galera_hosts + hostvars[galera_host].galera_ip + ',' %}
 {%  endif %}
