@@ -34,21 +34,21 @@
   with_items:
     - /var/log/mysql
 
-- name: Find Exsisting MariaDB Configuration
+- name: Find Exsisting MariaDB Configurations
   find:
     paths: /etc
     patterns: "mysql*"
     use_regex: true
   register: mysql_configs
 
-- name: Remove Exsisting MariaDB Configuration
+- name: Remove Exsisting MariaDB Configurations
   file:
     path: "{{ item['path'] }}"
     state: absent
   with_items:
     - "{{ mysql_configs['files'] }}"
 
-- name: Remove Exsisting MariaDB Directory Configuration
+- name: Remove Exsisting MariaDB Configurations Directory
   file:
     path: "{{ item }}"
     state: absent

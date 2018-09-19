@@ -1,5 +1,5 @@
 ---
-- name: Remove Exsisting MariaDB Configuration
+- name: Remove Exsisting MariaDB Configurations
   file:
     path: "{{ item }}"
     state: absent
