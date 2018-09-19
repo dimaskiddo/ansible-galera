@@ -1,6 +1,6 @@
 [all:vars]
-galera_version_major=10
-galera_version_minor=3
+galera_version_major=5
+galera_version_minor=7
 galera_root_password=root
 galera_admin_username=admin
 galera_admin_password=admin

@@ -1,4 +1,10 @@
 ---
+- name: Install Galera Keyring
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: '0xBC19DDBA'
+    state: present
+
 - name: Install Galera Repository
   template:
     src: galera.list.j2

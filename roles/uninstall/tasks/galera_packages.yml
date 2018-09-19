@@ -29,3 +29,8 @@
   file:
     path: "/etc/apt/sources.list.d/galera.list"
     state: absent
+
+- name: Uninstall Galera Keyring
+  apt_key:
+    id: '0xBC19DDBA'
+    state: absent
