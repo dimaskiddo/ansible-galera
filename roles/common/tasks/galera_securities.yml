@@ -23,7 +23,7 @@
     priv: "*.*:ALL,GRANT"
     host: "{{ hostvars[item]['galera_ip'] }}"
   with_items:
-    - "{{ groups['galera-node'] }}"
+    - "{{ groups['galera_node'] }}"
 
 - name: Create MariaDB Admin Account 
   mysql_user:
@@ -57,7 +57,7 @@
     name: haproxy
     host: "{{ hostvars[item]['galera_ip'] }}"
   with_items:
-    - "{{ groups['galera-lb'] }}"
+    - "{{ groups['galera_lb'] }}"
 
 - name: Remove MariaDB Anonymous Account
   mysql_user: 
