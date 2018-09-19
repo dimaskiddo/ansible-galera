@@ -9,7 +9,7 @@
 
 - name: Generate MariaDB Galera Configuration
   template:
-    src: galera.cnf
+    src: galera.cnf.j2
     dest: /etc/mysql/conf.d/galera.cnf
     owner: root
     group: root

@@ -24,6 +24,10 @@
   when:
     - inventory_hostname in groups['galera-node']
 
+- include: galera_securities.yml
+  when:
+    - inventory_hostname in groups['galera-node']
+
 - include: galera_services.yml
   when:
     - inventory_hostname in groups['galera-node']
