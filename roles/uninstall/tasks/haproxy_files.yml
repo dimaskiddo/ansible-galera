@@ -27,21 +27,21 @@
   with_items:
     - "{{ haproxy_logs['files'] }}"
 
-- name: Find Exsisting HAProxy Configuration
+- name: Find Exsisting HAProxy Configurations
   find:
     paths: /etc/haproxy
     patterns: "haproxy*"
     use_regex: true
   register: haproxy_configs
 
-- name: Remove Exsisting HAProxy Configuration
+- name: Remove Exsisting HAProxy Configurations
   file:
     path: "{{ item['path'] }}"
     state: absent
   with_items:
     - "{{ haproxy_configs['files'] }}"
 
-- name: Remove Exsisting HAProxy Directory Configuration
+- name: Remove Exsisting HAProxy Configurations Directory
   file:
     path: /etc/haproxy
     state: absent

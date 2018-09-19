@@ -8,4 +8,13 @@
     recurse: true
   with_items:
     - /var/lib/mysql
+
+- name: Create MariaDB Logs Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "mysql"
+    group: "mysql"
+    recurse: true
+  with_items:
     - /var/log/mysql
