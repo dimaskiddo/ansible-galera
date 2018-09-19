@@ -12,7 +12,7 @@
     create: yes
     state: present
 
-- name: Install MariaDB Packages
+- name: Install MariaDB Server Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -22,4 +22,16 @@
     state: present
   with_items:
     - mariadb-server
+  when:
+    - inventory_hostname in groups['galera-node']
+
+- name: Install MariaDB Client Packages
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
+    state: present
+  with_items:
     - mariadb-client

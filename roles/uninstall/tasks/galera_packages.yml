@@ -1,5 +1,5 @@
 ---
-- name: Uninstall MariaDB Packages
+- name: Uninstall MariaDB Server Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -9,6 +9,18 @@
     state: absent
   with_items:
     - mariadb-server
+  when:
+    - inventory_hostname in groups['galera-node']
+
+- name: Uninstall MariaDB Client Packages
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    autoremove: yes
+    autoclean: yes
+    purge: yes
+    state: absent
+  with_items:
     - mariadb-client
 
 - name: Uninstall MariaDB Repository

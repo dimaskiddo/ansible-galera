@@ -29,7 +29,6 @@
 - include: galera_packages.yml
   when:
     - full_uninstall
-    - inventory_hostname in groups['galera-node']
 
 - include: galera_users.yml
   when:
