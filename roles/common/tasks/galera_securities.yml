@@ -31,7 +31,7 @@
 - name: Create MariaDB HAProxy Account for Health Check (Local)
   mysql_user:
     login_user: root
-    login_password: "{{ galera_admin_password }}"
+    login_password: "{{ galera_root_password }}"
     check_implicit_admin: yes
     name: haproxy
     host: "{{ item }}"
@@ -43,7 +43,7 @@
 - name: Create MariaDB HAProxy Account for Health Check (Node)
   mysql_user:
     login_user: root
-    login_password: "{{ galera_admin_password }}"
+    login_password: "{{ galera_root_password }}"
     check_implicit_admin: yes
     name: haproxy
     host: "{{ hostvars[item]['galera_ip'] }}"
@@ -53,7 +53,7 @@
 - name: Remove MariaDB Anonymous Account
   mysql_user: 
     login_user: root
-    login_password: "{{ galera_admin_password }}"
+    login_password: "{{ galera_root_password }}"
     check_implicit_admin: yes
     user: ""
     host_all: yes
@@ -62,6 +62,6 @@
 - name: Remove MariaDB Test Database
   mysql_db:
     login_user: root
-    login_password: "{{ galera_admin_password }}"
+    login_password: "{{ galera_root_password }}"
     name: test
     state: absent
