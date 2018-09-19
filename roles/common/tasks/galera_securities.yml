@@ -18,7 +18,7 @@
     login_user: root
     login_password: "{{ galera_root_password }}"
     check_implicit_admin: yes
-    name: {{ galera_admin_username }}
+    name: "{{ galera_admin_username }}"
     password: "{{ galera_admin_password }}"
     priv: "*.*:ALL,GRANT"
     host: "{{ item }}"
