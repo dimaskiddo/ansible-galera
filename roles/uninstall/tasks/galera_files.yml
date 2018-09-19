@@ -27,7 +27,7 @@
   with_items:
     - "{{ mysql_logs['files'] }}"
 
-- name: Remove Exsisting MariaDB Directory Logs
+- name: Remove Exsisting MariaDB Logs Directory
   file:
     path: "{{ item }}"
     state: absent
