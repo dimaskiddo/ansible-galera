@@ -33,7 +33,6 @@
 - include: galera_users.yml
   when:
     - full_uninstall
-    - inventory_hostname in groups['galera_node']
 
 - include: zfs_mounts.yml
   when:
