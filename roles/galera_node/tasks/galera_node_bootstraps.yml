@@ -13,13 +13,13 @@
     warn: false
   when:
     - galera_service_info.stdout.find("not-found") == -1
-    - galera_minor_version == '5' or galera_minor_version == '6'
+    - galera_version_minor == '5' or galera_version_minor == '6'
   run_once: true
 
 - name: Boostrap Galera Cluster on Galera Service for Version 5.7 on The First Node
   shell: mysqld_bootstrap
   when:
-    - galera_minor_version == '7'
+    - galera_version_minor == '7'
   run_once: true
 
 - name: Enable Galera Service on The First Node
