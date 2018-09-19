@@ -45,7 +45,7 @@
     - zfs_backend
     - not zfs_block_status.stat.exists
 
-- name: Make Sure ZFS Backend not Enabled if Node is an Load Balancer Node
+- name: Make Sure ZFS Backend not Enabled if Node is a Load Balancer Node
   set_fact:
     zfs_backend: 'false'
   when:
