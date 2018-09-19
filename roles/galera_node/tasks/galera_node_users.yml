@@ -57,3 +57,11 @@
   with_items:
     - "{{ groups['galera_lb'] }}"
   run_once: true
+
+- name: Remove MariaDB Test Database
+  mysql_db:
+    login_user: root
+    login_password: "{{ galera_root_password }}"
+    name: test
+    state: absent
+  run_once: true

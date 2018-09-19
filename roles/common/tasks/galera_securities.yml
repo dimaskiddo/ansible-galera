@@ -5,9 +5,3 @@
     host_all: yes
     check_implicit_admin: yes
     state: "absent"
-
-- name: Remove MariaDB Test Database
-  mysql_db:
-    name: test
-    check_implicit_admin: yes
-    state: absent
