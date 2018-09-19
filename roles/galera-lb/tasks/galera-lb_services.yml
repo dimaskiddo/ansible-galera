@@ -1,0 +1,31 @@
+---
+- name: Reload HAProxy Service
+  systemd:
+    daemon_reload: yes
+  when:
+    - service_init_status.stat.islnk is defined
+    - service_init_status.stat.islnk
+
+- name: Get HAProxy Service Info
+  shell: service haproxy status | grep not-found || true
+  args:
+    warn: false
+  register: haproxy_service_info
+  when:
+    - service_init_status.stat.exists
+
+- name: Enable HAProxy Service
+  service:
+    name: haproxy
+    enabled: yes
+    state: restarted
+  when:
+    - haproxy_service_info.stdout.find("not-found") == -1
+
+- name: Wait For HAProxy Service
+  wait_for:
+    port: 3306
+    timeout: 15
+    connect_timeout: 3
+    delay: 5
+    state: present

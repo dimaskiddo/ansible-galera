@@ -1,0 +1,11 @@
+---
+- name: Uninstall HAProxy Packages
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    autoremove: yes
+    autoclean: yes
+    purge: yes
+    state: absent
+  with_items:
+    - haproxy

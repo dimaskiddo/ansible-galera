@@ -1,0 +1,23 @@
+---
+- name: Get MariaDB Service Info
+  shell: service mariadb status | grep not-found || true
+  args:
+    warn: false
+  register: mariadb_service_info
+  when:
+    - service_init_status.stat.exists
+
+- name: Disable MariaDB Node Service
+  service:
+    name: mariadb
+    enabled: no
+    state: stopped
+  when:
+    - mariadb_service_info.stdout.find("not-found") == -1
+ 
+ - name: Reload MariaDB Service
+  systemd:
+    daemon_reload: yes
+  when:
+    - service_init_status.stat.islnk is defined
+    - service_init_status.stat.islnk

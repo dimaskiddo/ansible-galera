@@ -1,0 +1,49 @@
+---
+- include: facts.yml
+
+- include: haproxy_services.yml
+  when:
+    - inventory_hostname in groups['galera-lb']
+
+- include: haproxy_files.yml
+  when:
+    - inventory_hostname in groups['galera-lb']
+
+- include: haproxy_packages.yml
+  when:
+    - full_uninstall
+    - inventory_hostname in groups['galera-lb']
+
+- include: galera_services.yml
+  when:
+    - inventory_hostname in groups['galera-node']
+
+- include: galera_files.yml
+  when:
+    - inventory_hostname in groups['galera-node']
+
+- include: galera_dirs_parents.yml
+  when:
+    - inventory_hostname in groups['galera-node']
+
+- include: galera_packages.yml
+  when:
+    - full_uninstall
+    - inventory_hostname in groups['galera-node']
+
+- include: galera_users.yml
+  when:
+    - full_uninstall
+    - inventory_hostname in groups['galera-node']
+
+- include: zfs_mounts.yml
+  when:
+    - full_uninstall
+    - zfs_backend
+    - inventory_hostname in groups['galera-node']
+
+- include: zfs_blocks.yml
+  when:
+    - full_uninstall
+    - zfs_backend
+    - inventory_hostname in groups['galera-node']

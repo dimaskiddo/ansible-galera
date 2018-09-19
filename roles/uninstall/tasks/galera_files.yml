@@ -1,0 +1,56 @@
+---
+- name: Find Exsisting MariaDB Scripts
+  find:
+    paths: /tmp
+    patterns: "mysql*"
+    use_regex: true
+  register: mysql_scripts
+
+- name: Remove Exsisting MariaDB Scripts
+  file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items:
+    - "{{ mysql_scripts['files'] }}"
+
+- name: Find Exsisting MariaDB Logs
+  find:
+    paths: /var/log/mysql
+    patterns: "mysql*"
+    use_regex: true
+  register: mysql_logs
+
+- name: Remove Exsisting MariaDB Logs
+  file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items:
+    - "{{ mysql_logs['files'] }}"
+
+- name: Remove Exsisting MariaDB Directory Logs
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /var/log/mysql
+
+- name: Find Exsisting MariaDB Configuration
+  find:
+    paths: /etc
+    patterns: "mysql*"
+    use_regex: true
+  register: mysql_configs
+
+- name: Remove Exsisting MariaDB Configuration
+  file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items:
+    - "{{ mysql_configs['files'] }}"
+
+- name: Remove Exsisting MariaDB Directory Configuration
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/mysql

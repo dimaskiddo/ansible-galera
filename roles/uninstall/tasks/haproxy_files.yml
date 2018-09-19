@@ -1,0 +1,33 @@
+---
+- name: Find Exsisting HAProxy Scripts
+  find:
+    paths: /tmp
+    patterns: "haproxy*"
+    use_regex: true
+  register: haproxy_scripts
+
+- name: Remove Exsisting HAProxy Scripts
+  file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items:
+    - "{{ haproxy_scripts['files'] }}"
+
+- name: Find Exsisting HAProxy Configuration
+  find:
+    paths: /etc/haproxy
+    patterns: "haproxy*"
+    use_regex: true
+  register: haproxy_configs
+
+- name: Remove Exsisting HAProxy Configuration
+  file:
+    path: "{{ item['path'] }}"
+    state: absent
+  with_items:
+    - "{{ haproxy_configs['files'] }}"
+
+- name: Remove Exsisting HAProxy Directory Configuration
+  file:
+    path: /etc/haproxy
+    state: absent

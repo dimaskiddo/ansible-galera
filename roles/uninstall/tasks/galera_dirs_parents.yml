@@ -1,0 +1,10 @@
+---
+- name: Remove MariaDB Parent Directories
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /var/lib/mysql
+    - /var/log/mysql
+  when:
+    - not zfs_backend

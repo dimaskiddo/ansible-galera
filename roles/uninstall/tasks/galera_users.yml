@@ -1,0 +1,11 @@
+---
+- name: Remove MariaDB User
+  user:
+    name: mysql
+    force: yes
+    state: absent
+
+- name: Remove MariaDB Group
+  group:
+    name: mysql
+    state: absent

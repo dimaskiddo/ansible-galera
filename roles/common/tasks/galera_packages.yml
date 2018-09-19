@@ -1,0 +1,25 @@
+---
+- name: Install MariaDB Keyring
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 199369E5404BD5FC7D2FE43BCBCB082A1BB943DB
+    state: present
+
+- name: Install MariaDB Repository
+  lineinfile:
+    dest: "/etc/apt/sources.list.d/mariadb-{{ mongo_version_major }}.{{ mongo_version_minor }}.list"
+    line: "deb [arch=amd64] http://kartolo.sby.datautama.net.id/mariadb/repo/{{ mariadb_version_major }}.{{ mariadb_version_minor }}/ubuntu {{ ansible_distribution_release }} main"
+    create: yes
+    state: present
+
+- name: Install MariaDB Packages
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
+    state: present
+  with_items:
+    - mariadb-server
+    - mariadb-client

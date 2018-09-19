@@ -1,0 +1,11 @@
+---
+- name: Create MariaDB Parent Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "mysql"
+    group: "mysql"
+    recurse: true
+  with_items:
+    - /var/lib/mysql
+    - /var/log/mysql

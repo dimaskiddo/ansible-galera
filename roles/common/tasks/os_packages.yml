@@ -1,0 +1,33 @@
+---
+- name: Upgrade Operating System
+  apt:
+    force_apt_get: yes
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
+    upgrade: full
+  register: os_upgrade_info
+
+- name: Restart Node If Operating System Upgraded
+  shell: shutdown -r +60 "Ansible Mongo Operating System Upgrade Triggered" 
+  args:
+    warn: false
+  async: 60
+  poll: 5
+  when: os_upgrade_info.changed
+
+- name: Install Required Packages
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
+    state: present
+  with_items:
+    - ca-certificates
+    - apt-transport-https
+    - software-properties-common
+    - curl
+    - wget
+    - rsync
