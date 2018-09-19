@@ -16,6 +16,6 @@ wsrep_node_name = {{ galera_ip }}
 wsrep_node_address = {{ galera_ip }}
 
 wsrep_cluster_name = {{ galera_cluster_name }}
-wsrep_cluster_address = "gcomm://{% for galera_host in groups[galera_node] %}{{ galera_host }}{% if not loop.last %},{% endif %}{% endfor %}"
+wsrep_cluster_address = "gcomm://{% for galera_host in groups['galera_node'] %}{{ galera_host }}{% if not loop.last %},{% endif %}{% endfor %}"
 
 wsrep_sst_method = rsync
