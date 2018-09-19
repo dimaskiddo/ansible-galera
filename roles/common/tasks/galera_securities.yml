@@ -9,10 +9,10 @@
     priv: "*.*:ALL,GRANT"
     host: "{{ item }}"
   with_items:
-    - "{{ galera_ip }}"
-    - "127.0.0.1"
     - "::1"
-    - localhost
+    - "127.0.0.1"
+    - "localhost"
+    - "{{ galera_ip }}"
 
 - name: Create MariaDB HAProxy Account for Health Check
   mysql_user:
@@ -22,10 +22,10 @@
     name: haproxy
     host: "{{ item }}"
   with_items:
-    - "{{ groups['galera-lb'].galera_ip }}"
-    - "127.0.0.1"
     - "::1"
-    - localhost
+    - "127.0.0.1"
+    - "localhost"
+    - "{{ groups['galera-lb'].galera_ip }}"
 
 - name: Remove MariaDB Anonymous Account
   mysql_user: 
@@ -33,10 +33,10 @@
     login_password: "{{ galera_admin_password }}"
     check_implicit_admin: yes
     user: ""
-    host: "{{ item }}"
+    host_all: yes
     state: "absent"
-  with_items:
-    - "{{ galera_ip }}"
-    - "127.0.0.1"
-    - "::1"
-    - localhost
+
+- name: Remove MariaDB Test Database
+  mysql_db:
+    name: test
+    state: absent
