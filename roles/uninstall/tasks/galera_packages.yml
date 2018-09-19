@@ -20,7 +20,7 @@
     state: absent
   with_items:
     - mysql-server
-    - mysql-wsrep-{{ galera_major_version }}.{{ galera_minor_version }}
+    - mysql-wsrep-{{ galera_version_major }}.{{ galera_version_minor }}
     - galera-3
     - galera-arbitrator-3
   when:
