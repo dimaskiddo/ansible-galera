@@ -22,6 +22,7 @@
     - mysql-server
     - mysql-wsrep-{{ galera_major_version }}.{{ galera_minor_version }}
     - galera-3
+    - galera-arbitrator-3
   when:
     - inventory_hostname in groups['galera_node']
 
