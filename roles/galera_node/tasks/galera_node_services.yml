@@ -20,7 +20,7 @@
     enabled: yes
     state: restarted
   when:
-    - inventory_hostname != groups['galera-node'] | first
+    - inventory_hostname != groups['galera_node'] | first
     - mariadb_service_info.stdout.find("not-found") == -1
 
 - name: Wait For MariaDB Service
@@ -31,4 +31,4 @@
     delay: 5
     state: present
   when:
-    - inventory_hostname != groups['galera-node'] | first
+    - inventory_hostname != groups['galera_node'] | first
