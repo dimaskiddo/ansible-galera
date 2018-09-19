@@ -18,5 +18,5 @@
 
 - name: Uninstall MariaDB Keyring
   apt_key:
-    id: 199369E5404BD5FC7D2FE43BCBCB082A1BB943DB
+    id: '0xF1656F24C74CD1D8'
     state: absent
