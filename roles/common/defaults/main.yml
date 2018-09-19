@@ -8,6 +8,12 @@ galera_version_major: '10'
 # Default Value for MariaDB Galera Minor Version
 galera_version_minor: '3'
 
+# Default Value MariaDB Galera Root Password
+galera_root_password: 'root'
+
+# Default Value MariaDB Galera Admin User
+galera_admin_username: 'admin'
+
 # Default Value MariaDB Galera Admin Password
 galera_admin_password: 'admin'
 
