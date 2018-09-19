@@ -6,13 +6,13 @@ wsrep_node_name="{{ galera_ip }}"
 wsrep_node_address=127.0.0.1
 
 wsrep_cluster_name={{ galera_cluster_name }}
-{% set galera_hosts = '' %}
+{% set g_hosts = '' %}
 {% for galera_host in groups['galera_node'] %}
 {%  if loop.last %}
-{%    set galera_hosts = galera_hosts + hostvars[galera_host].galera_ip %}
-wsrep_cluster_address=gcomm://{{ galera_hosts }}
+{%    set g_hosts = g_hosts + hostvars[galera_host].galera_ip %}
+wsrep_cluster_address="gcomm://{{ g_hosts }}"
 {%  else %}
-{%    set galera_hosts = galera_hosts + hostvars[galera_host].galera_ip + ',' %}
+{%    set g_hosts = g_hosts + hostvars[galera_host].galera_ip + ',' %}
 {%  endif %}
 {% endfor %}
 wsrep_sst_method=rsync
