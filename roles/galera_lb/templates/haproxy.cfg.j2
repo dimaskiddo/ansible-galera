@@ -12,6 +12,6 @@ backend galera_cluster_backend
     option tcpka
     option mysql-check user haproxy
     balance source
-{% for galera_host in groups['galera-node'] %}
+{% for galera_host in groups['galera_node'] %}
     server {{ hostvars[galera_host].galera_ip }} {{ hostvars[galera_host].galera_ip }}:3306 check weight 1
 {% endfor %}
