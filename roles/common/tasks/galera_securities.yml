@@ -32,7 +32,7 @@
     login_password: "{{ galera_admin_password }}"
     check_implicit_admin: yes
     name: haproxy
-    host: "{{ hostvars["{{ item }}"]['galera_ip'] }}"
+    host: "{{ hostvars['{{ item }}']['galera_ip'] }}"
   with_items:
     - "{{ groups['galera-lb'] }}"
 
