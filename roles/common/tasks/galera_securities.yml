@@ -14,7 +14,7 @@
     - "localhost"
     - "{{ galera_ip }}"
 
-- name: Create MariaDB HAProxy Account for Health Check
+- name: Create MariaDB HAProxy Account for Health Check (Local)
   mysql_user:
     login_user: root
     login_password: "{{ galera_admin_password }}"
@@ -25,7 +25,16 @@
     - "::1"
     - "127.0.0.1"
     - "localhost"
-    - "{{ groups['galera-lb'].galera_ip }}"
+
+- name: Create MariaDB HAProxy Account for Health Check (Node)
+  mysql_user:
+    login_user: root
+    login_password: "{{ galera_admin_password }}"
+    check_implicit_admin: yes
+    name: haproxy
+    host: "{{ hostvars["{{ item }}"]['galera_ip'] }}"
+  with_items:
+    - "{{ groups['galera-lb'] }}"
 
 - name: Remove MariaDB Anonymous Account
   mysql_user: 
