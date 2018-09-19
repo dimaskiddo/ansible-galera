@@ -13,7 +13,7 @@
 
 - name: Uninstall MariaDB Repository
   file:
-    path: "/etc/apt/sources.list.d/mariadb-{{ mongo_version_major }}.{{ mongo_version_minor }}.list"
+    path: "/etc/apt/sources.list.d/mariadb-{{ galera_version_major }}.{{ galera_version_minor }}.list"
     state: absent
 
 - name: Uninstall MariaDB Keyring
