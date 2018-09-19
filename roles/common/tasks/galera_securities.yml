@@ -49,6 +49,5 @@
   mysql_db:
     login_user: root
     login_password: "{{ galera_admin_password }}"
-    check_implicit_admin: yes
     name: test
     state: absent
