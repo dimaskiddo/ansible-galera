@@ -8,7 +8,7 @@
 - name: Install MariaDB Repository
   lineinfile:
     dest: "/etc/apt/sources.list.d/mariadb-{{ galera_version_major }}.{{ galera_version_minor }}.list"
-    line: "deb [arch=amd64] http://kartolo.sby.datautama.net.id/mariadb/repo/{{ mariadb_version_major }}.{{ mariadb_version_minor }}/ubuntu {{ ansible_distribution_release }} main"
+    line: "deb [arch=amd64] http://kartolo.sby.datautama.net.id/mariadb/repo/{{ galera_version_major }}.{{ galera_version_minor }}/ubuntu {{ ansible_distribution_release }} main"
     create: yes
     state: present
 
