@@ -9,3 +9,5 @@
     state: absent
   with_items:
     - haproxy
+  environment:
+    DEBIAN_FRONTEND: noninteractive

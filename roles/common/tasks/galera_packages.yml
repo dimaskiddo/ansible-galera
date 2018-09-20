@@ -22,6 +22,8 @@
   shell: dpkg --install /tmp/percona-release_0.1-6.$(lsb_release -sc)_all.deb
   args:
     warn: false
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   when:
     - galera_distribution == 'percona'
 
@@ -39,13 +41,15 @@
     update_cache: yes
     autoremove: yes
     autoclean: yes
-    state: present
+    state: present    
   with_items:
     - percona-xtradb-cluster-garbd-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-server-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-galera-3.x
     - percona-xtrabackup-24
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   when:
     - galera_distribution == 'percona'
     - inventory_hostname in groups['galera_node']
@@ -61,5 +65,7 @@
   with_items:
     - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-client-{{ galera_version_major }}.{{ galera_version_minor }}
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   when:
     - galera_distribution == 'percona'

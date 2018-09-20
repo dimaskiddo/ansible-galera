@@ -10,6 +10,8 @@
   with_items:
     - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-client-{{ galera_version_major }}.{{ galera_version_minor }}
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   when:
     - galera_distribution == 'percona'
 
@@ -27,6 +29,8 @@
     - percona-xtradb-cluster-server-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-galera-3.x
     - percona-xtrabackup-24
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   when:
     - galera_distribution == 'percona'
     - inventory_hostname in groups['galera_node']
@@ -41,6 +45,8 @@
     state: absent
   with_items:
     - percona-release
+  environment:
+    DEBIAN_FRONTEND: noninteractive
   when:
     - galera_distribution == 'percona'
 
