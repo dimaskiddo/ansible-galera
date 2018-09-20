@@ -9,10 +9,9 @@ query_cache_size = 0
 query_cache_type = 0
 
 wsrep_on = ON
-wsrep_provider = /usr/lib64/galera/libgalera_smm.so
+wsrep_provider = /usr/lib/libgalera_smm.so
 
-wsrep_node_name = "{{ galera_ip }}"
-wsrep_node_address = "{{ galera_ip }}"
+wsrep_node_address = {{ galera_ip }}
 
 wsrep_cluster_name = {{ galera_cluster_name }}
 wsrep_cluster_address = "gcomm://{% for galera_host in groups['galera_node'] %}{{ galera_host }}{% if not loop.last %},{% endif %}{% endfor %}"
