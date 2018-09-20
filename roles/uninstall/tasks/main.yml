@@ -22,14 +22,14 @@
   when:
     - inventory_hostname in groups['galera_node']
 
-- include: galera_directories.yml
-  when:
-    - inventory_hostname in groups['galera_node']
-
 - include: zfs_mounts.yml
   when:
     - full_uninstall
     - zfs_backend
+    - inventory_hostname in groups['galera_node']
+
+- include: galera_directories.yml
+  when:
     - inventory_hostname in groups['galera_node']
 
 - include: galera_packages.yml

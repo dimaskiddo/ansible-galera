@@ -9,6 +9,16 @@
   with_items:
     - /var/lib/mysql
 
+- name: Create Galera Configurations Directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    recurse: true
+  with_items:
+    - /etc/mysql
+
 - name: Create Galera Run Directory
   file:
     path: "{{ item }}"

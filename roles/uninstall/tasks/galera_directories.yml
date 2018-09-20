@@ -13,6 +13,13 @@
   with_items:
     - /var/run/mysqld
 
+- name: Remove Configurations Directory
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/mysql
+
 - name: Remove Galera Databases Directory
   file:
     path: "{{ item }}"

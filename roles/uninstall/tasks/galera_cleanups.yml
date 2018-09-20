@@ -41,16 +41,16 @@
   with_items:
     - "{{ mysql_configs['files'] }}"
 
-- name: Remove Exsisting Galera Configurations Directory
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - /etc/mysql
+- name: Find Exsisting Galera Databases
+  find:
+    paths: /var/lib
+    patterns: "mysql*"
+    use_regex: true
+  register: mysql_databases
 
-- name: Remove Exsisitng Galera Databases Directory
+- name: Remove Exsisting Galera Databases
   file:
-    path: "{{ item }}"
+    path: "{{ item['path'] }}"
     state: absent
   with_items:
-    - /var/lib/mysql
+    - "{{ mysql_databases['files'] }}"
