@@ -6,7 +6,7 @@
   with_items:
     - /var/lib/mysql
 
-- name: Remove Exsisting Galera Configurations (Percona)
+- name: Remove Exsisting Galera Configurations
   file:
     path: "{{ item }}"
     state: absent

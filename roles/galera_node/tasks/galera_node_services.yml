@@ -1,5 +1,5 @@
 ---
-- name: Reload Galera Service on The Other Node
+- name: Reload Galera Service
   systemd:
     daemon_reload: yes
   when:
@@ -7,7 +7,7 @@
     - service_init_status.stat.islnk is defined
     - service_init_status.stat.islnk
 
-- name: Get Galera Service Info on The Other Node
+- name: Get Galera Service Info
   shell: service mysql status | grep not-found || true
   args:
     warn: false
@@ -16,7 +16,7 @@
     - inventory_hostname != groups['galera_node'] | first
     - service_init_status.stat.exists
 
-- name: Enable Galera Service on The Other Node
+- name: Enable Galera Service
   service:
     name: mysql
     enabled: yes
@@ -25,7 +25,7 @@
     - inventory_hostname != groups['galera_node'] | first
     - galera_service_info.stdout.find("not-found") == -1
 
-- name: Wait For Galera Service on The Other Node
+- name: Wait For Galera Service
   wait_for:
     port: 3306
     timeout: 15

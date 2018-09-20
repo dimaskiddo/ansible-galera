@@ -7,7 +7,7 @@
     group: root
     mode: 0644
 
-- name: Generate Galera Galera Configuration
+- name: Generate Galera Cluster Configuration
   template:
     src: galera.cnf.j2
     dest: /etc/mysql/conf.d/galera.cnf

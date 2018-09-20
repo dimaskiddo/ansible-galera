@@ -14,7 +14,7 @@
     - "%"
   run_once: true
 
-- name: Create Galera HAProxy User for Health Check
+- name: Create Galera HAProxy User
   mysql_user:
     login_user: root
     login_password: "{{ galera_root_password }}"
