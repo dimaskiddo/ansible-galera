@@ -1,7 +1,7 @@
 ---
 - include: facts.yml
 
-#- include: os_users.yml
+- include: os_users.yml
 
 - include: os_packages.yml
 

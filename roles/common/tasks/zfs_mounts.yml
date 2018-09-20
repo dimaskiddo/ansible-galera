@@ -7,3 +7,13 @@
     opts: defaults
     passno: 2
     state: mounted
+
+- name: Set Mounted ZFS Dataset Galera Directory Owner
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    recurse: true
+  with_items:
+    - /var/lib/mysql
