@@ -34,6 +34,10 @@
   when:
     - inventory_hostname in groups['galera_node']
 
+- include: galera_init_root.yml
+  when:
+    - inventory_hostname in groups['galera_node']
+
 - include: haproxy_packages.yml
   when:
     - inventory_hostname in groups['galera_lb']
