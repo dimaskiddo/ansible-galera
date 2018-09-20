@@ -14,12 +14,6 @@ galera_version_minor: '7'
 # Default Value Galera Root Password
 galera_root_password: 'root'
 
-# Default Value Galera Admin User
-galera_admin_username: 'admin'
-
-# Default Value Galera Admin Password
-galera_admin_password: 'admin'
-
 # Default Value Galera Cluster Name
 galera_cluster_name: 'galera'
 

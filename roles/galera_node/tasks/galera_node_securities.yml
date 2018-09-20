@@ -1,0 +1,41 @@
+---
+- name: Create Galera Root User
+  mysql_user:
+    name: root
+    password: "{{ galera_root_password }}"
+    priv: "*.*:ALL,GRANT"
+    host: "{{ item }}"
+    check_implicit_admin: yes
+  with_items:
+    - "::1"
+    - "127.0.0.1"
+    - "localhost"
+    - "%"
+  run_once: true
+
+- name: Create Galera HAProxy User for Health Check
+  mysql_user:
+    login_user: root
+    login_password: "{{ galera_root_password }}"
+    name: haproxy
+    host: "{{ hostvars[item]['galera_ip'] }}"
+  with_items:
+    - "{{ groups['galera_lb'] }}"
+  run_once: true
+
+- name: Remove Galera Anonymous Account
+  mysql_user: 
+    login_user: root
+    login_password: "{{ galera_root_password }}"
+    user: ""
+    host_all: yes
+    state: "absent"
+  run_once: true
+
+- name: Remove Galera Test Database
+  mysql_db:
+    login_user: root
+    login_password: "{{ galera_root_password }}"
+    name: test
+    state: absent
+  run_once: true

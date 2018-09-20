@@ -34,8 +34,6 @@
     galera_version_major: "{{ galera_version_major | default(default_value, true) }}"
     galera_version_minor: "{{ galera_version_minor | default(default_value, true) }}"
     galera_root_password: "{{ galera_root_password | default(default_value, true) }}"
-    galera_admin_username: "{{ galera_admin_username | default(default_value, true) }}"
-    galera_admin_password: "{{ galera_admin_password | default(default_value, true) }}"
     galera_cluster_name: "{{ galera_cluster_name | default(default_value, true) }}"
     zfs_backend: "{{ zfs_backend if zfs_block_device is defined else 'false' | default(default_value, true) }}"
     zfs_block_wipe: "{{ zfs_block_wipe if zfs_block_device is defined else 'false' | default(default_value, true) }}"

@@ -1,7 +1,0 @@
----
-- name: Remove Galera Anonymous Account
-  mysql_user: 
-    user: ""
-    host_all: yes
-    check_implicit_admin: yes
-    state: "absent"

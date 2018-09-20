@@ -21,22 +21,6 @@
   with_items:
     - "{{ mysql_logs['files'] }}"
 
-- name: Remove Exsisting Galera Logs Directory
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - /var/log/mysql
-
-- name: Create Galera Logs Files
-  file:
-    path: "{{ item }}"
-    state: touch
-    owner: mysql
-    group: mysql
-  with_items:
-    - /var/log/mysqld.log
-
 - name: Find Exsisting Galera Scripts
   find:
     paths: /tmp

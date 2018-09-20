@@ -11,9 +11,6 @@ galera_version_major: '5'
 # Default Value for MariaDB Galera Minor Version
 galera_version_minor: '7'
 
-# Default Value MariaDB Galera Admin Password
-galera_admin_password: 'admin'
-
 # Default Value MariaDB Galera Cluster Name
 galera_cluster_name: 'galera'
 

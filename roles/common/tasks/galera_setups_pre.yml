@@ -1,11 +1,11 @@
 ---
-- name: Pre-Setup Galera Group
+- name: Pre-Setup Create Galera Group
   group:
     name: mysql
     system: yes
     state: present
 
-- name: Pre-Setup Galera User
+- name: Pre-Setup Create Galera User
   user:
     name: mysql
     group: mysql
@@ -15,7 +15,7 @@
     system: yes
     state: present
 
-- name: Pre-Setup Galera Parent Directories
+- name: Pre-Setup Create Galera Parent Directories
   file:
     path: "{{ item }}"
     state: directory
@@ -25,7 +25,7 @@
   with_items:
     - /var/lib/mysql
 
-- name: Pre-Setup Galera Run Directories
+- name: Pre-Setup Create Galera Run Directories
   file:
     path: "{{ item }}"
     state: directory
@@ -35,7 +35,7 @@
   with_items:
     - /var/run/mysqld
 
-- name: Pre-Setup Galera Logs Directories
+- name: Pre-Setup Create Galera Logs Directories
   file:
     path: "{{ item }}"
     state: directory
@@ -45,7 +45,7 @@
   with_items:
     - /var/log/mysql
 
-- name: Pre-Setup Galera Logs Files
+- name: Pre-Setup Create Galera Logs Files
   file:
     path: "{{ item }}"
     state: touch

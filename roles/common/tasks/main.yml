@@ -20,13 +20,11 @@
     - zfs_backend
     - inventory_hostname in groups['galera_node']
 
-- include: galera_presetups.yml
-
-- include: galera_packages.yml
-
-- include: galera_securities.yml
+- include: galera_setups_pre.yml
   when:
     - inventory_hostname in groups['galera_node']
+
+- include: galera_packages.yml
 
 - include: galera_services.yml
   when:
@@ -37,6 +35,10 @@
     - inventory_hostname in groups['galera_node']
 
 - include: galera_dirs_parents.yml
+  when:
+    - inventory_hostname in groups['galera_node']
+
+- include: galera_setups_post.yml
   when:
     - inventory_hostname in groups['galera_node']
 
