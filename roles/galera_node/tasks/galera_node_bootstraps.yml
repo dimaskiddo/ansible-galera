@@ -14,6 +14,7 @@
   register: galera_service_info
   when:
     - service_init_status.stat.exists
+  run_once: true
 
 - name: Boostrap Galera Cluster on The First Node (Percona)
   shell: service mysql bootstrap-pxc || true

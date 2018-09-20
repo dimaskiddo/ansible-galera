@@ -18,8 +18,3 @@ wsrep_cluster_name = {{ galera_cluster_name }}
 wsrep_cluster_address = "gcomm://{% for galera_host in groups['galera_node'] %}{{ galera_host }}{% if not loop.last %},{% endif %}{% endfor %}"
 
 wsrep_sst_method = rsync
-
-
-[mysql_safe]
-log-error=/var/log/mysqld.log
-pid-file=/var/run/mysqld/mysqld.pid

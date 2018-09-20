@@ -1,4 +1,9 @@
 ---
+- name: Create Galera Databases File
+  shell: mysqld --initialize
+  args:
+    warn: false
+
 - name: Create Galera Databases Directory
   file:
     path: "{{ item }}"

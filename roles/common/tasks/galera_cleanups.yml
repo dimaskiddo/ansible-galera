@@ -6,6 +6,13 @@
   with_items:
     - /var/lib/mysql
 
+- name: Remove Exsisting Galera Configurations
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/mysql/percona-xtradb-
+
 - name: Find Exsisting Galera Logs
   find:
     paths: /var/log

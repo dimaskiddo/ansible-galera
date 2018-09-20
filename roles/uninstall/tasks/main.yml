@@ -26,19 +26,19 @@
   when:
     - inventory_hostname in groups['galera_node']
 
-- include: galera_users.yml
-  when:
-    - full_uninstall
-
-- include: galera_packages.yml
-  when:
-    - full_uninstall
-
 - include: zfs_mounts.yml
   when:
     - full_uninstall
     - zfs_backend
     - inventory_hostname in groups['galera_node']
+
+- include: galera_packages.yml
+  when:
+    - full_uninstall
+
+- include: galera_users.yml
+  when:
+    - full_uninstall
 
 - include: zfs_blocks.yml
   when:
