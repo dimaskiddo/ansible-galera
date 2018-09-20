@@ -2,11 +2,14 @@
 # Default Value for Full Uninstall
 full_uninstall: 'false'
 
+# Default Value for Galera Distribution
+galera_distribution: 'percona'
+
 # Default Value for MariaDB Galera Major Version
-galera_version_major: '10'
+galera_version_major: '5'
 
 # Default Value for MariaDB Galera Minor Version
-galera_version_minor: '3'
+galera_version_minor: '7'
 
 # Default Value MariaDB Galera Admin Password
 galera_admin_password: 'admin'

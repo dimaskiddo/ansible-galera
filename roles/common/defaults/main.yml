@@ -2,6 +2,9 @@
 # Default Value for Host IP
 galera_ip: "{{ ansible_default_ipv4.address }}"
 
+# Default Value for Galera Distribution
+galera_distribution: 'percona'
+
 # Default Value for Galera Major Version
 galera_version_major: '5'
 

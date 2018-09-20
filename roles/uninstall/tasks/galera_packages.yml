@@ -1,5 +1,5 @@
 ---
-- name: Uninstall Galera Client Packages
+- name: Uninstall Galera Client Packages (Percona)
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -8,29 +8,51 @@
     purge: yes
     state: absent
   with_items:
-   - mysql-client
-
-- name: Uninstall Galera Server Packages
-  apt:
-    name: "{{ item }}"
-    force_apt_get: yes
-    autoremove: yes
-    autoclean: yes
-    purge: yes
-    state: absent
-  with_items:
-    - galera-3
-    - galera-arbitrator-3
-    - mysql-wsrep-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-client-{{ galera_version_major }}.{{ galera_version_minor }}
   when:
+    - galera_distribution == 'percona'
+
+- name: Uninstall Galera Server Packages (Percona)
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    autoremove: yes
+    autoclean: yes
+    purge: yes
+    state: absent
+  with_items:
+    - percona-xtradb-cluster-garbd-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-server-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-galera-3.x
+    - percona-xtrabackup-24
+  when:
+    - galera_distribution == 'percona'
     - inventory_hostname in groups['galera_node']
 
-- name: Uninstall Galera Repository
-  file:
-    path: "/etc/apt/sources.list.d/galera.list"
+- name: Uninstall Galera Repository (Percona)
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    autoremove: yes
+    autoclean: yes
+    purge: yes
     state: absent
+  with_items:
+    - percona-release
+  when:
+    - galera_distribution == 'percona'
 
-- name: Uninstall Galera Keyring
-  apt_key:
-    id: '0xBC19DDBA'
-    state: absent
+- name: Install AppArmor Packages (Percona)
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
+    state: present
+  with_items:
+    - apparmor
+  when:
+    - galera_distribution == 'percona'

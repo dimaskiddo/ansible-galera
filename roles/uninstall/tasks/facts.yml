@@ -30,6 +30,7 @@
 - name: Set Host Facts
   set_fact:
     full_uninstall: "{{ full_uninstall | default(default_value, true) }}"
+    galera_distribution: "{{ galera_distribution | default(default_value, true) }}"
     galera_version_major: "{{ galera_version_major | default(default_value, true) }}"
     galera_version_minor: "{{ galera_version_minor | default(default_value, true) }}"
     zfs_backend: "{{ zfs_backend if zfs_block_device is defined else 'false' | default(default_value, true) }}"

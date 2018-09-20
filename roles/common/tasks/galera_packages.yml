@@ -1,19 +1,38 @@
 ---
-- name: Install Galera Keyring
-  apt_key:
-    keyserver: keyserver.ubuntu.com
-    id: '0xBC19DDBA'
-    state: present
+- name: Remove AppArmor Packages (Percona)
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    autoremove: yes
+    autoclean: yes
+    state: absent
+  with_items:
+    - apparmor
+  when:
+    - galera_distribution == 'percona'
 
-- name: Install Galera Repository
-  template:
-    src: galera.list.j2
-    dest: "/etc/apt/sources.list.d/galera.list"
-    owner: root
-    group: root
-    mode: 0644
+- name: Download Galera Repository Package (Percona)
+  shell: wget -O /tmp/percona-release_0.1-6.$(lsb_release -sc)_all.deb https://repo.percona.com/apt/percona-release_0.1-6.$(lsb_release -sc)_all.deb
+  args:
+    warn: false
+  when:
+    - galera_distribution == 'percona'
 
-- name: Install Galera Server Packages
+- name: Install Galera Repository (Percona)
+  shell: dpkg --install /tmp/percona-release_0.1-6.$(lsb_release -sc)_all.deb
+  args:
+    warn: false
+  when:
+    - galera_distribution == 'percona'
+
+- name: Remove Downloaded Galera Repository Package (Percona)
+  shell: rm -f /tmp/percona-release_0.1-6.$(lsb_release -sc)_all.deb || true
+  args:
+    warn: false
+  when:
+    - galera_distribution == 'percona'
+
+- name: Install Galera Server Packages (Percona)
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -22,13 +41,16 @@
     autoclean: yes
     state: present
   with_items:
-    - galera-3
-    - galera-arbitrator-3
-    - mysql-wsrep-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-garbd-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-server-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-galera-3.x
+    - percona-xtrabackup-24
   when:
+    - galera_distribution == 'percona'
     - inventory_hostname in groups['galera_node']
 
-- name: Install Galera Client Packages
+- name: Install Galera Client Packages (Percona)
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -37,5 +59,7 @@
     autoclean: yes
     state: present
   with_items:
-    - mysql-client
- 
+    - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-client-{{ galera_version_major }}.{{ galera_version_minor }}
+  when:
+    - galera_distribution == 'percona'
