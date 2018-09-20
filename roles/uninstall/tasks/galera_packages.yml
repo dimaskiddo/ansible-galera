@@ -8,8 +8,8 @@
     purge: yes
     state: absent
   with_items:
-   - mysql-wsrep-client-{{ galera_version_major }}.{{ galera_version_minor }}
- 
+   - mysql-client
+
 - name: Uninstall Galera Server Packages
   apt:
     name: "{{ item }}"
@@ -22,7 +22,6 @@
     - galera-3
     - galera-arbitrator-3
     - mysql-wsrep-{{ galera_version_major }}.{{ galera_version_minor }}
-    - mysql-wsrep-server-{{ galera_version_major }}.{{ galera_version_minor }}    
   when:
     - inventory_hostname in groups['galera_node']
 
