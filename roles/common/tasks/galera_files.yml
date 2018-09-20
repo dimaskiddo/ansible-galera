@@ -31,10 +31,9 @@
 - name: Create Galera Logs Files
   file:
     path: "{{ item }}"
-    state: directory
+    state: touch
     owner: mysql
     group: mysql
-    recurse: true
   with_items:
     - /var/log/mysqld.log
 
