@@ -15,30 +15,22 @@
     - zfs_backend
     - inventory_hostname in groups['galera_node']
 
-- include: zfs_mounts.yml
-  when:
-    - zfs_backend
-    - inventory_hostname in groups['galera_node']
-
-- include: galera_setups_pre.yml
-  when:
-    - inventory_hostname in groups['galera_node']
-
 - include: galera_packages.yml
 
 - include: galera_services.yml
   when:
     - inventory_hostname in groups['galera_node']
 
-- include: galera_files.yml
+- include: galera_cleanups.yml
   when:
     - inventory_hostname in groups['galera_node']
 
-- include: galera_dirs_parents.yml
+- include: zfs_mounts.yml
   when:
+    - zfs_backend
     - inventory_hostname in groups['galera_node']
 
-- include: galera_setups_post.yml
+- include: galera_directories.yml
   when:
     - inventory_hostname in groups['galera_node']
 
@@ -50,6 +42,6 @@
   when:
     - inventory_hostname in groups['galera_lb']
 
-- include: haproxy_files.yml
+- include: haproxy_cleanups.yml
   when:
     - inventory_hostname in groups['galera_lb']

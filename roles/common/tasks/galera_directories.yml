@@ -1,5 +1,5 @@
 ---
-- name: Create Galera Parent Directories
+- name: Create Galera Databases Directory
   file:
     path: "{{ item }}"
     state: directory
@@ -9,7 +9,7 @@
   with_items:
     - /var/lib/mysql
 
-- name: Create Galera Run Directories
+- name: Create Galera Run Directory
   file:
     path: "{{ item }}"
     state: directory
@@ -19,12 +19,11 @@
   with_items:
     - /var/run/mysqld
 
-- name: Create Galera Logs Directories
+- name: Create Galera Logs File
   file:
     path: "{{ item }}"
-    state: directory
+    state: touch
     owner: mysql
     group: mysql
-    recurse: true
   with_items:
-    - /var/log/mysql
+    - /var/log/mysqld.log

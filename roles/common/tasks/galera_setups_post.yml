@@ -1,9 +1,0 @@
----
-- name: Post-Setup Create Galera Logs Files
-  file:
-    path: "{{ item }}"
-    state: touch
-    owner: mysql
-    group: mysql
-  with_items:
-    - /var/log/mysqld.log

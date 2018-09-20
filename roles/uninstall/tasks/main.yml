@@ -5,7 +5,7 @@
   when:
     - inventory_hostname in groups['galera_lb']
 
-- include: haproxy_files.yml
+- include: haproxy_cleanups.yml
   when:
     - inventory_hostname in groups['galera_lb']
 
@@ -18,19 +18,19 @@
   when:
     - inventory_hostname in groups['galera_node']
 
-- include: galera_files.yml
+- include: galera_cleanups.yml
   when:
     - inventory_hostname in groups['galera_node']
 
-- include: galera_packages.yml
-  when:
-    - full_uninstall
-
-- include: galera_dirs_parents.yml
+- include: galera_directories.yml
   when:
     - inventory_hostname in groups['galera_node']
 
 - include: galera_users.yml
+  when:
+    - full_uninstall
+
+- include: galera_packages.yml
   when:
     - full_uninstall
 

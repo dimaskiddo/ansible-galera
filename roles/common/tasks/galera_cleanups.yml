@@ -1,11 +1,10 @@
 ---
-- name: Remove Exsisting Galera Configurations
+- name: Remove Exsisitng Galera Databases Directory
   file:
     path: "{{ item }}"
     state: absent
   with_items:
-    - /etc/mysql/conf.d/tunning.cnf
-    - /etc/mysql/conf.d/galera.cnf
+    - /var/lib/mysql
 
 - name: Find Exsisting Galera Logs
   find:
