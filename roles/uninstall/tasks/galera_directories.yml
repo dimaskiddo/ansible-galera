@@ -19,5 +19,3 @@
     state: absent
   with_items:
     - /var/lib/mysql
-  when:
-    - not zfs_backend

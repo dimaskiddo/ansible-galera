@@ -11,7 +11,7 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - /etc/mysql/percona-xtradb-
+    - /etc/mysql/percona-xtradb-cluster.conf.d/wsrep.cnf
 
 - name: Find Exsisting Galera Logs
   find:
