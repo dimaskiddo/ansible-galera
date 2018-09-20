@@ -1,5 +1,5 @@
 ---
-- name: Uninstall Galera Client Packages (Percona)
+- name: Uninstall Galera Client Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -13,7 +13,7 @@
   when:
     - galera_distribution == 'percona'
 
-- name: Uninstall Galera Server Packages (Percona)
+- name: Uninstall Galera Server Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -31,7 +31,7 @@
     - galera_distribution == 'percona'
     - inventory_hostname in groups['galera_node']
 
-- name: Uninstall Galera Repository (Percona)
+- name: Uninstall Galera Repository
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -44,7 +44,7 @@
   when:
     - galera_distribution == 'percona'
 
-- name: Install AppArmor Packages (Percona)
+- name: Install AppArmor Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes

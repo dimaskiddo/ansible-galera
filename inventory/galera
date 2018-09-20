@@ -2,8 +2,6 @@
 galera_version_major=5
 galera_version_minor=7
 galera_root_password=root
-galera_admin_username=admin
-galera_admin_password=admin
 
 [galera_node]
 10.10.250.13

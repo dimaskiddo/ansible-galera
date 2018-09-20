@@ -1,5 +1,5 @@
 ---
-- name: Remove AppArmor Packages (Percona)
+- name: Remove AppArmor Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -11,28 +11,28 @@
   when:
     - galera_distribution == 'percona'
 
-- name: Download Galera Repository Package (Percona)
+- name: Download Galera Repository Package
   shell: wget -O /tmp/percona-release_0.1-6.$(lsb_release -sc)_all.deb https://repo.percona.com/apt/percona-release_0.1-6.$(lsb_release -sc)_all.deb
   args:
     warn: false
   when:
     - galera_distribution == 'percona'
 
-- name: Install Galera Repository (Percona)
+- name: Install Galera Repository
   shell: dpkg --install /tmp/percona-release_0.1-6.$(lsb_release -sc)_all.deb
   args:
     warn: false
   when:
     - galera_distribution == 'percona'
 
-- name: Remove Downloaded Galera Repository Package (Percona)
+- name: Remove Downloaded Galera Repository Package
   shell: rm -f /tmp/percona-release_0.1-6.$(lsb_release -sc)_all.deb || true
   args:
     warn: false
   when:
     - galera_distribution == 'percona'
 
-- name: Install Galera Server Packages (Percona)
+- name: Install Galera Server Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -50,7 +50,7 @@
     - galera_distribution == 'percona'
     - inventory_hostname in groups['galera_node']
 
-- name: Install Galera Client Packages (Percona)
+- name: Install Galera Client Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes

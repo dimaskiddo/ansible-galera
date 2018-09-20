@@ -1,4 +1,9 @@
 ---
+- name: Initiate Galera Database
+  shell: mysql_install_db --datadir=/var/lib/mysql --mysqld-file=$(which mysqld)
+  args:
+    warn: false
+
 - name: Generate Galera Root User Script
   template:
     src: mysql_init_root.sql.j2
@@ -16,3 +21,14 @@
   file:
     path: /tmp/mysql_init_root
     state: absent
+
+- name: Reset Galera Databases Directory Ownership
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    recurse: true
+  with_items:
+    - /var/lib/mysql
+

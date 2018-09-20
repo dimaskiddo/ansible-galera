@@ -16,7 +16,7 @@
     - service_init_status.stat.exists
   run_once: true
 
-- name: Boostrap Galera Cluster on The First Node (Percona)
+- name: Boostrap Galera Cluster on The First Node
   shell: service mysql bootstrap-pxc || true
   args:
     warn: false

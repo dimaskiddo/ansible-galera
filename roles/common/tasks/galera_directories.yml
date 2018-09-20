@@ -1,9 +1,4 @@
 ---
-- name: Create Galera Databases File
-  shell: mysql_install_db --datadir=/var/lib/mysql --mysqld-file=$(which mysqld)
-  args:
-    warn: false
-
 - name: Create Galera Databases Directory
   file:
     path: "{{ item }}"
