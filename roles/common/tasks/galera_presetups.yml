@@ -1,0 +1,56 @@
+---
+- name: Pre-Setup Galera Group
+  group:
+    name: mysql
+    system: yes
+    state: present
+
+- name: Pre-Setup Galera User
+  user:
+    name: mysql
+    group: mysql
+    comment: MySQL Server
+    home: /var/lib/mysql
+    create_home: no
+    system: yes
+    state: present
+
+- name: Pre-Setup Galera Parent Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    recurse: true
+  with_items:
+    - /var/lib/mysql
+
+- name: Pre-Setup Galera Run Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    recurse: true
+  with_items:
+    - /var/run/mysqld
+
+- name: Pre-Setup Galera Logs Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    recurse: true
+  with_items:
+    - /var/log/mysql
+
+- name: Pre-Setup Galera Logs Files
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    recurse: true
+  with_items:
+    - /var/log/mysqld.log

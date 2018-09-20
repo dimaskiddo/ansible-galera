@@ -1,4 +1,18 @@
 ---
+- name: Remove Galera Logs Directories
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /var/log/mysql
+
+- name: Remove Galera Run Directories
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /var/run/mysqld
+
 - name: Remove Galera Parent Directories
   file:
     path: "{{ item }}"

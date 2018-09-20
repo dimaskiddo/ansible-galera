@@ -9,7 +9,7 @@
 
 - name: Find Exsisting Galera Logs
   find:
-    paths: /var/log/mysql
+    paths: /var/log
     patterns: "mysql*"
     use_regex: true
   register: mysql_logs
@@ -27,6 +27,16 @@
     state: absent
   with_items:
     - /var/log/mysql
+
+- name: Create Galera Logs Files
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    recurse: true
+  with_items:
+    - /var/log/mysqld.log
 
 - name: Find Exsisting Galera Scripts
   find:

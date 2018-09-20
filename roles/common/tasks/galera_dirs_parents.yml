@@ -3,18 +3,28 @@
   file:
     path: "{{ item }}"
     state: directory
-    owner: "mysql"
-    group: "mysql"
+    owner: mysql
+    group: mysql
     recurse: true
   with_items:
     - /var/lib/mysql
+
+- name: Create Galera Run Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: mysql
+    group: mysql
+    recurse: true
+  with_items:
+    - /var/run/mysqld
 
 - name: Create Galera Logs Directories
   file:
     path: "{{ item }}"
     state: directory
-    owner: "mysql"
-    group: "mysql"
+    owner: mysql
+    group: mysql
     recurse: true
   with_items:
     - /var/log/mysql

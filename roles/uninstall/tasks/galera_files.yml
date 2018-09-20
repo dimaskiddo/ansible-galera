@@ -15,7 +15,7 @@
 
 - name: Find Exsisting Galera Logs
   find:
-    paths: /var/log/mysql
+    paths: /var/log
     patterns: "mysql*"
     use_regex: true
   register: mysql_logs

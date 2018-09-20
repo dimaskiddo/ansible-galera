@@ -1,8 +1,6 @@
 ---
 - include: facts.yml
 
-- include: os_users.yml
-
 - include: os_packages.yml
 
 - include: python_packages.yml
@@ -21,6 +19,8 @@
   when:
     - zfs_backend
     - inventory_hostname in groups['galera_node']
+
+- include: galera_presetups.yml
 
 - include: galera_packages.yml
 
