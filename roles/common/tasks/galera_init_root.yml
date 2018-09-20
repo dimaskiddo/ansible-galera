@@ -1,0 +1,18 @@
+---
+- name: Generate Galera Root User Script
+  template:
+    src: mysql_init_root.sql.j2
+    dest: /tmp/mysql_init_root.sql
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Initiate Galera Root User
+  shell: mysqld --bootstrap --verbose=0 < /tmp/mysql_init_root.sql
+  args:
+    warn: false
+
+- name: Clean-up Generated Script For Intiate Galera Root User
+  file:
+    path: /tmp/mysql_init_root
+    state: absent
