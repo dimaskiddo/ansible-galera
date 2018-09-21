@@ -12,6 +12,8 @@
   shell: sleep 5 && shutdown -r now "Operating System Upgrade Triggered" 
   args:
     warn: false
+  async: 1
+  poll: 0    
   when: os_upgrade_info.changed
 
 - name: Wait For Node to Be Ready
