@@ -1,17 +1,8 @@
 ---
-- name: Find Exsisting Galera Databases
-  find:
-    paths: /var/lib
-    patterns: "mysql*"
-    use_regex: true
-  register: mysql_databases
-
 - name: Remove Exsisting Galera Databases
-  file:
-    path: "{{ item['path'] }}"
-    state: absent
-  with_items:
-    - "{{ mysql_databases['files'] }}"
+  shell: rm -rf /var/lib/mysql/*
+  args:
+    warn: false
 
 - name: Remove Exsisting Galera Configurations
   file:
