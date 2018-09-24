@@ -27,6 +27,7 @@
 
 - name: Wait For Galera Service
   wait_for:
+    host: "{{ galera_ip }}"
     port: 3306
     timeout: 15
     connect_timeout: 3
