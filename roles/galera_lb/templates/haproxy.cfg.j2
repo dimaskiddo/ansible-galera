@@ -1,4 +1,3 @@
-
 # Galera Cluster Frontend configuration
 frontend galera_cluster_frontend
     bind 0.0.0.0:3306
@@ -9,9 +8,9 @@ frontend galera_cluster_frontend
 # Galera Cluster Backend configuration
 backend galera_cluster_backend
     mode tcp
+    balance source
     option tcpka
     option mysql-check user haproxy
-    balance source
 {% for galera_host in groups['galera_node'] %}
-    server {{ hostvars[galera_host].galera_ip }} {{ hostvars[galera_host].galera_ip }}:3306 check weight 1
+    server {{ hostvars[galera_host].galera_ip }} {{ hostvars[galera_host].galera_ip }}:3306 send-proxy check inter 1000 rise 3 fall 3 weight 1
 {% endfor %}
