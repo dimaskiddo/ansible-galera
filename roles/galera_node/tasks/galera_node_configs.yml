@@ -1,8 +1,8 @@
 ---
-- name: Generate Galera Server Configuration
+- name: Generate Galera Bind Address Configuration
   template:
-    src: server.cnf.j2
-    dest: /etc/mysql/conf.d/server.cnf
+    src: bind-address.cnf.j2
+    dest: /etc/mysql/conf.d/bind-address.cnf
     owner: root
     group: root
     mode: 0644
