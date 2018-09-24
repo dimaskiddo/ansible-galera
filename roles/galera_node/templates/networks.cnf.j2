@@ -1,5 +1,6 @@
 [mysqld]
 bind-address = {{ galera_ip }}
+{% if groups['galera_lb'] | length > 0 %}
 proxy_protocol_networks = {% for galera_node_host in groups['galera_node'] %}{{ hostvars[galera_node_host].galera_ip }}{% if not loop.last %},{% endif %}{% endfor %}{% if groups['galera_lb'] | length > 0 %},{% for galera_lb_host in groups['galera_lb'] %}{{ hostvars[galera_lb_host].galera_ip }}{% if not loop.last %},{% endif %}{% endfor %}{% endif %}
-
+{% endif %}
 skip_name_resolve
