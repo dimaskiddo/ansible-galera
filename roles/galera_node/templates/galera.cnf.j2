@@ -14,6 +14,6 @@ wsrep_provider = /usr/lib/libgalera_smm.so
 wsrep_node_address = {{ galera_ip }}
 
 wsrep_cluster_name = {{ galera_cluster_name }}
-wsrep_cluster_address = "gcomm://{% for galera_host in groups['galera_node'] %}{{ hostvars[galera_host].galera_ip }}{% if not loop.last %},{% endif %}{% endfor %}"
+wsrep_cluster_address = "gcomm://{% for galera_node_host in groups['galera_node'] %}{{ hostvars[galera_node_host].galera_ip }}{% if not loop.last %},{% endif %}{% endfor %}"
 
 wsrep_sst_method = rsync
