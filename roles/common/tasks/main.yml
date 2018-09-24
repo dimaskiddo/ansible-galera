@@ -16,9 +16,13 @@
     - inventory_hostname in groups['galera_node']
 
 - include: galera_users.yml
+  when:
+    - inventory_hostname in groups['galera_node']
 
 - include: galera_packages.yml
-
+  when:
+    - inventory_hostname in groups['galera_node']
+    
 - include: galera_services.yml
   when:
     - inventory_hostname in groups['galera_node']

@@ -32,7 +32,7 @@
   when:
     - galera_distribution == 'percona'
 
-- name: Install Galera Server Packages
+- name: Install Galera Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -44,22 +44,8 @@
     - percona-xtradb-cluster-garbd-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-server-{{ galera_version_major }}.{{ galera_version_minor }}
+    - percona-xtradb-cluster-client-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-galera-3.x
     - percona-xtrabackup-24
-  when:
-    - galera_distribution == 'percona'
-    - inventory_hostname in groups['galera_node']
-
-- name: Install Galera Client Packages
-  apt:
-    name: "{{ item }}"
-    force_apt_get: yes
-    update_cache: yes
-    autoremove: yes
-    autoclean: yes
-    state: present
-  with_items:
-    - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
-    - percona-xtradb-cluster-client-{{ galera_version_major }}.{{ galera_version_minor }}
   when:
     - galera_distribution == 'percona'
