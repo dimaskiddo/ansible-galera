@@ -1,4 +1,6 @@
 ---
+- include: facts.yml
+
 - include: galera_node_configs.yml
 
 - include: galera_node_bootstraps.yml
