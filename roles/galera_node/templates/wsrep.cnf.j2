@@ -1,12 +1,9 @@
 [mysqld]
+log-bin
 binlog_format = row
-default_storage_engine = innodb
 
 innodb_autoinc_lock_mode = 2
-innodb_flush_log_at_trx_commit = 0
-
-query_cache_size = 0
-query_cache_type = 0
+innodb_flush_log_at_trx_commit = 1
 
 wsrep_on = ON
 wsrep_provider = /usr/lib/libgalera_smm.so

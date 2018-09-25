@@ -1,19 +1,33 @@
 [mysqld]
 ignore-db-dir = lost+found
+default_storage_engine = innodb
 
 symbolic-links = 0
 lower_case_table_names = 0
-innodb_use_native_aio = 1
 
 ft_min_word_len = 4
 ft_max_word_len = 20
 
+query_cache_size = 0
+query_cache_type = 0
+
 sort_buffer_size = 256K
 read_rnd_buffer_size = 256K
 net_buffer_length = 2K
-myisam_sort_buffer_size = 2M
-innodb_buffer_pool_size = 150M
+
+myisam_sort_buffer_size = 8M
+
+innodb_log_buffer_size = {{ log_buffer_size }}
+innodb_buffer_pool_size = {{ buffer_pool_size }}
+
+innodb_use_native_aio = 1
+innodb_file_per_table = ON
+innodb_flush_method = O_DIRECT
+
+max_connections = 251
 max_allowed_packet = 200M
+
+expire_logs_days = 14
 
 
 [myisamchk]
