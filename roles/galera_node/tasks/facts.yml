@@ -1,5 +1,5 @@
 ---
 - name: Set Host Facts
   set_fact:
-    log_buffer_size: "{{ ((ansible_memtotal_mb * 70) / 100) * 7) / 100 }}M"
-    buffer_pool_size: "{{ (ansible_memtotal_mb * 70) / 100 }}M"
+    log_buffer_size: "{{ (ansible_memtotal_mb * 0.7 * 0.07) | int | abs }}"
+    buffer_pool_size: "{{ (ansible_memtotal_mb * 0.7) | int | abs }}"
