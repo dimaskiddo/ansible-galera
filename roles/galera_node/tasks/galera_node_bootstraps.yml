@@ -43,3 +43,28 @@
     delay: 5
     state: present
   run_once: true
+
+- name: Get Galera Cluster Check Service Info on Bootstrap Node
+  shell: service xinetd status | grep not-found || true
+  args:
+    warn: false
+  register: xinetd_service_info
+  when:
+    - service_init_status.stat.exists
+
+- name: Enable Galera Cluster Check Service on Bootstrap Node
+  service:
+    name: xinetd
+    enabled: no
+    state: restarted
+  when:
+    - xinetd_service_info.stdout.find("not-found") == -1
+
+- name: Wait For Galera Cluster Check Service on Bootstrap Node
+  wait_for:
+    host: "{{ galera_ip }}"
+    port: 9200
+    timeout: 15
+    connect_timeout: 3
+    delay: 5
+    state: present

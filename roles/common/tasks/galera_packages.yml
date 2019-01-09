@@ -39,7 +39,7 @@
     update_cache: yes
     autoremove: yes
     autoclean: yes
-    state: present    
+    state: present
   with_items:
     - percona-xtradb-cluster-garbd-{{ galera_version_major }}.{{ galera_version_minor }}
     - percona-xtradb-cluster-common-{{ galera_version_major }}.{{ galera_version_minor }}
@@ -49,3 +49,22 @@
     - percona-xtrabackup-24
   when:
     - galera_distribution == 'percona'
+
+- name: Install Galera Cluster Check Packages
+  apt:
+    name: "{{ item }}"
+    force_apt_get: yes
+    update_cache: yes
+    autoremove: yes
+    autoclean: yes
+    state: present
+  with_items:
+    - xinetd
+
+- name: Enable Galera Cluster Check as Know Services
+  lineinfile:
+    path: /etc/services
+    insertafter: '^# Local services'
+    line: 'mysqlchk    9200/tcp      # MySQL Check'
+    create: yes
+    state: present

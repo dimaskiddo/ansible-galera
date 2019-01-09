@@ -1,16 +1,27 @@
+# HAProxy Status Frontend configuration
+frontend haproxy_status_frontend
+    bind 0.0.0.0:80
+    default_backend haproxy_status_backend
+    mode http
+
+# HAProxy Status Backend configuration
+backend haproxy_status_backend
+    mode http
+    balance roundrobin
+    stats uri /haproxy/stats
+    stats auth root:{{ galera_root_password }}
+
 # Galera Cluster Frontend configuration
 frontend galera_cluster_frontend
     bind 0.0.0.0:3306
     default_backend galera_cluster_backend
-    option tcplog
     mode tcp
 
 # Galera Cluster Backend configuration
 backend galera_cluster_backend
     mode tcp
-    balance source
-    option tcpka
-    option mysql-check user haproxy
+    balance leastconn
+    option httpchk
 {% for galera_node_host in groups['galera_node'] %}
-    server {{ hostvars[galera_node_host].galera_ip }} {{ hostvars[galera_node_host].galera_ip }}:3306 send-proxy check inter 1000 rise 3 fall 3 weight 1
+    server {{ hostvars[galera_node_host].galera_ip }} {{ hostvars[galera_node_host].galera_ip }}:3306 send-proxy check port 9200 inter 12000 rise 3 fall 3
 {% endfor %}

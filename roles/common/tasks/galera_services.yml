@@ -14,7 +14,7 @@
   when:
     - service_init_status.stat.exists
 
-- name: Disable Galera Node Service
+- name: Disable Galera Service
   service:
     name: mysql
     enabled: no
@@ -23,6 +23,6 @@
     - galera_service_info.stdout.find("not-found") == -1
  
 - name: Kill All Remaining Galera Service
-  shell: killall mysqld || true
+  shell: killall -9 mysqld || true
   args:
     warn: false

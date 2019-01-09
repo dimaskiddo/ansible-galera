@@ -1,4 +1,10 @@
 ---
+- name: Disable Galera Cluster Check as Know Services
+  lineinfile:
+    path: /etc/services
+    line: 'mysqlchk    9200/tcp      # MySQL Check'
+    state: absent
+
 - name: Uninstall Galera Packages
   apt:
     name: "{{ item }}"

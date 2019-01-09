@@ -21,3 +21,8 @@
     state: stopped
   when:
     - haproxy_service_info.stdout.find("not-found") == -1
+
+- name: Kill All Remaining HAProxy Service
+  shell: killall -9 haproxy || true
+  args:
+    warn: false

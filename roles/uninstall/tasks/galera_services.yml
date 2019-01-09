@@ -16,7 +16,7 @@
     - galera_service_info.stdout.find("not-found") == -1
  
 - name: Kill All Remaining Galera Service
-  shell: killall mysqld || true
+  shell: killall -9 mysqld || true
   args:
     warn: false
 

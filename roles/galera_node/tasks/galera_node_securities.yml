@@ -14,14 +14,16 @@
     - "%"
   run_once: true
 
-- name: Create Galera HAProxy User
+- name: Create Galera Cluster Check User
   mysql_user:
     login_user: root
     login_password: "{{ galera_root_password }}"
-    name: haproxy
-    host: "{{ hostvars[item]['galera_ip'] }}"
+    name: clustercheckuser
+    password: "clustercheckpassword!"
+    priv: "*.*:PROCESS,GRANT"
+    host: "{{ item }}"
   with_items:
-    - "{{ groups['galera_lb'] }}"
+    - "localhost"
   run_once: true
 
 - name: Remove Galera Anonymous Account

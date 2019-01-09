@@ -35,3 +35,32 @@
     state: present
   when:
     - inventory_hostname != groups['galera_node'] | first
+
+- name: Get Galera Cluster Check Service Info
+  shell: service xinetd status | grep not-found || true
+  args:
+    warn: false
+  register: xinetd_service_info
+  when:
+    - inventory_hostname != groups['galera_node'] | first
+    - service_init_status.stat.exists
+
+- name: Enable Galera Cluster Check Service
+  service:
+    name: xinetd
+    enabled: no
+    state: restarted
+  when:
+    - inventory_hostname != groups['galera_node'] | first
+    - xinetd_service_info.stdout.find("not-found") == -1
+
+- name: Wait For Galera Cluster Check Service
+  wait_for:
+    host: "{{ galera_ip }}"
+    port: 9200
+    timeout: 15
+    connect_timeout: 3
+    delay: 5
+    state: present
+  when:
+    - inventory_hostname != groups['galera_node'] | first
