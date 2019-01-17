@@ -55,7 +55,7 @@
 - name: Enable Galera Cluster Check Service on Bootstrap Node
   service:
     name: xinetd
-    enabled: no
+    enabled: yes
     state: restarted
   when:
     - xinetd_service_info.stdout.find("not-found") == -1

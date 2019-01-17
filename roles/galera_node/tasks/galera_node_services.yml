@@ -48,7 +48,7 @@
 - name: Enable Galera Cluster Check Service
   service:
     name: xinetd
-    enabled: no
+    enabled: yes
     state: restarted
   when:
     - inventory_hostname != groups['galera_node'] | first
