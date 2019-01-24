@@ -6,6 +6,15 @@
     - ansible_distribution != 'Ubuntu'
     - ansible_distribution_major_version | int >= 14
 
+- name: Fail if Required Variable is not defined
+  fail:
+    msg: "Variable {{ item }} should be defined"
+  when:
+    - item is not defined
+    - item == ""
+  with_items:
+    - zfs_dataset_size
+
 - name: Get Service Init Status
   stat:
     path: /sbin/init

@@ -26,12 +26,6 @@
     part_end: 100%
     state: present
 
-- name: Get ZFS Block Device Partition Info
-  parted:
-    device: "/dev/{{ zfs_block_device }}1"
-    unit: MiB
-  register: zfs_partition_info
-
 - name: Get ZFS Pool Lists
   shell: zpool list
   register: zfs_pool_lists
@@ -50,7 +44,7 @@
     - zfs_pool_lists.stdout.find(zfs_pool_name) != -1
 
 - name: Create ZFS Pool for Galera
-  shell: zpool create {{ zfs_pool_name }} -o ashift=12 -O compression=lz4 /dev/{{ zfs_block_device }}1
+  shell: zpool create {{ zfs_pool_name }} -O compression=lz4 -o ashift=12 /dev/{{ zfs_block_device }}1
   when:
     - zfs_pool_lists.stdout.find(zfs_pool_name) == -1
 
@@ -72,7 +66,7 @@
     - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mysql") != -1
 
 - name: Create ZFS Dataset for Galera
-  shell: zfs create -s -o volblocksize=64k -V {{ zfs_partition_info.disk.size }}M {{ zfs_pool_name }}/mysql
+  shell: zfs create -s -o volblocksize=64k -V {{ zfs_dataset_size }} {{ zfs_pool_name }}/mysql
   when:
     - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mysql") == -1
 
@@ -84,7 +78,7 @@
 - name: Format ZFS Dataset Device for Galera
   filesystem:
     dev: "/dev/zvol/{{ zfs_pool_name }}/mysql"
-    fstype: xfs
+    fstype: ext4
     force: yes
   when:
     - zfs_dataset_galera_status.stat.exists
