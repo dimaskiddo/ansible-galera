@@ -10,8 +10,7 @@
   fail:
     msg: "Variable {{ item }} should be defined"
   when:
-    - item is not defined
-    - item == ""
+    - item is not defined or item == ""
   with_items:
     - zfs_dataset_size
 
