@@ -3,7 +3,7 @@
   mount:
     path: /var/lib/mysql
     src: "/dev/zvol/{{ zfs_pool_name }}/mysql"
-    fstype: ext4
+    fstype: xfs
     opts: defaults
     passno: 2
     state: mounted

@@ -66,7 +66,7 @@
     - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mysql") != -1
 
 - name: Create ZFS Dataset for Galera
-  shell: zfs create -s -V {{ zfs_dataset_size }} {{ zfs_pool_name }}/mysql
+  shell: zfs create -s -o volblocksize=64k -V {{ zfs_dataset_size }} {{ zfs_pool_name }}/mysql
   when:
     - zfs_dataset_lists.stdout.find(zfs_pool_name ~ "/mysql") == -1
 
@@ -78,7 +78,7 @@
 - name: Format ZFS Dataset Device for Galera
   filesystem:
     dev: "/dev/zvol/{{ zfs_pool_name }}/mysql"
-    fstype: ext4
+    fstype: xfs
     force: yes
   when:
     - zfs_dataset_galera_status.stat.exists
