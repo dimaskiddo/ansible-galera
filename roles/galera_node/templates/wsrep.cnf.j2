@@ -3,9 +3,7 @@ log-bin
 binlog_format = row
 
 innodb_autoinc_lock_mode = 2
-innodb_flush_log_at_trx_commit = 1
-
-pxc_strict_mode = PERMISSIVE
+innodb_flush_log_at_trx_commit = 0
 
 wsrep_on = ON
 wsrep_provider = /usr/lib/libgalera_smm.so
