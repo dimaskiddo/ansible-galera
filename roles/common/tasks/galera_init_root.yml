@@ -19,7 +19,7 @@
 
 - name: Clean-up Generated Script For Intiate Galera Root User
   file:
-    path: /tmp/mysql_init_root
+    path: /tmp/mysql_init_root.sql
     state: absent
 
 - name: Reset Galera Databases Directory Ownership

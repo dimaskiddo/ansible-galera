@@ -3,8 +3,6 @@
   apt:
     name: "{{ item }}"
     force_apt_get: yes
-    autoremove: yes
-    autoclean: yes
     purge: yes
     state: absent
   with_items:
@@ -21,24 +19,9 @@
   apt:
     name: "{{ item }}"
     force_apt_get: yes
-    autoremove: yes
-    autoclean: yes
     purge: yes
     state: absent
   with_items:
     - percona-release
-  when:
-    - galera_distribution == 'percona'
-
-- name: Install AppArmor Packages
-  apt:
-    name: "{{ item }}"
-    force_apt_get: yes
-    update_cache: yes
-    autoremove: yes
-    autoclean: yes
-    state: present
-  with_items:
-    - apparmor
   when:
     - galera_distribution == 'percona'

@@ -1,16 +1,4 @@
 ---
-- name: Remove AppArmor Packages
-  apt:
-    name: "{{ item }}"
-    force_apt_get: yes
-    autoremove: yes
-    autoclean: yes
-    state: absent
-  with_items:
-    - apparmor
-  when:
-    - galera_distribution == 'percona'
-
 - name: Download Galera Repository Package
   shell: wget -O /tmp/percona-release_0.1-6.$(lsb_release -sc)_all.deb https://repo.percona.com/apt/percona-release_0.1-6.$(lsb_release -sc)_all.deb
   args:
@@ -37,8 +25,7 @@
     name: "{{ item }}"
     force_apt_get: yes
     update_cache: yes
-    autoremove: yes
-    autoclean: yes
+    dpkg_options: "force-confdef,force-confold,force-confmiss"
     state: present
   with_items:
     - percona-xtradb-cluster-garbd-{{ galera_version_major }}.{{ galera_version_minor }}
@@ -55,8 +42,7 @@
     name: "{{ item }}"
     force_apt_get: yes
     update_cache: yes
-    autoremove: yes
-    autoclean: yes
+    dpkg_options: "force-confdef,force-confold,force-confmiss"
     state: present
   with_items:
     - xinetd

@@ -3,8 +3,6 @@
   apt:
     force_apt_get: yes
     update_cache: yes
-    autoremove: yes
-    autoclean: yes
     upgrade: full
   register: os_upgrade_info
 
@@ -29,8 +27,7 @@
     name: "{{ item }}"
     force_apt_get: yes
     update_cache: yes
-    autoremove: yes
-    autoclean: yes
+    dpkg_options: "force-confdef,force-confold,force-confmiss"
     state: present
   with_items:
     - ca-certificates

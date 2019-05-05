@@ -1,9 +1,9 @@
 ---
 - include: facts.yml
 
-- include: os_packages.yml
+- include: apparmor_services.yml
 
-- include: python_packages.yml
+- include: os_packages.yml
 
 - include: zfs_packages.yml
   when:
@@ -55,3 +55,7 @@
 - include: haproxy_cleanups.yml
   when:
     - inventory_hostname in groups['galera_lb']
+
+- include: python_packages.yml
+
+- include: os_cleanups.yml

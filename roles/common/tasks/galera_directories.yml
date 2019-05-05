@@ -9,15 +9,14 @@
   with_items:
     - /var/lib/mysql
 
-- name: Create Galera Configurations Directory
+- name: Create Galera Logs File
   file:
     path: "{{ item }}"
-    state: directory
-    owner: root
-    group: root
-    recurse: true
+    state: touch
+    owner: mysql
+    group: mysql
   with_items:
-    - /etc/mysql
+    - /var/log/mysqld.log
 
 - name: Create Galera Run Directory
   file:
@@ -29,11 +28,12 @@
   with_items:
     - /var/run/mysqld
 
-- name: Create Galera Logs File
+- name: Create Galera Configurations Directory
   file:
     path: "{{ item }}"
-    state: touch
-    owner: mysql
-    group: mysql
+    state: directory
+    owner: root
+    group: root
+    recurse: true
   with_items:
-    - /var/log/mysqld.log
+    - /etc/mysql
