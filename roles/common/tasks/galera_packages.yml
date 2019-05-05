@@ -48,8 +48,8 @@
     - xinetd
 
 - name: Install Galera Cluster Check Scripts
-  get_url:
-    url: https://raw.githubusercontent.com/olafz/percona-clustercheck/master/clustercheck
+  template:
+    src: clustercheck.j2
     dest: /usr/bin/clustercheck
     owner: root
     group: root
