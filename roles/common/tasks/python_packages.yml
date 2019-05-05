@@ -8,5 +8,6 @@
     autoclean: yes
     state: present
   with_items:
+    - python-software-properties
     - python-pip
     - python-mysqldb

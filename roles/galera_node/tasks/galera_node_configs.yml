@@ -7,18 +7,18 @@
     group: root
     mode: 0644
 
-- name: Generate Galera WSREP Configuration
-  template:
-    src: wsrep.cnf.j2
-    dest: /etc/mysql/conf.d/wsrep.cnf
-    owner: root
-    group: root
-    mode: 0644
-
 - name: Generate Galera Tunning Configuration
   template:
     src: tunning.cnf.j2
     dest: /etc/mysql/conf.d/tunning.cnf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Generate Galera WSREP Configuration
+  template:
+    src: wsrep.cnf.j2
+    dest: /etc/mysql/conf.d/wsrep.cnf
     owner: root
     group: root
     mode: 0644

@@ -61,6 +61,22 @@
   with_items:
     - xinetd
 
+- name: Install Galera Cluster Check Scripts
+  get_url:
+    url: https://raw.githubusercontent.com/olafz/percona-clustercheck/master/clustercheck
+    dest: /usr/bin/clustercheck
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Install Galera Cluster Check Configurations
+  template:
+    src: mysqlchk.j2
+    dest: /etc/xinetd.d/mysqlchk
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Enable Galera Cluster Check as Know Services
   lineinfile:
     path: /etc/services

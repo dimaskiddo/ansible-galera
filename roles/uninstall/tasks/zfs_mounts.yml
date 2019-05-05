@@ -1,5 +1,5 @@
 ---
-- name: Unmount ZFS Dataset from MariaDB Directory
+- name: Unmount ZFS Dataset from Galera Directory
   mount:
     path: /var/lib/mysql
     state: absent
