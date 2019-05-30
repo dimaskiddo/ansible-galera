@@ -36,7 +36,7 @@
   when:
     - inventory_hostname != groups['galera_node'] | first
 
-- name: Get Galera Cluster Check Service Info
+- name: Get XInetD Service Info
   shell: service xinetd status | grep not-found || true
   args:
     warn: false
@@ -45,7 +45,7 @@
     - inventory_hostname != groups['galera_node'] | first
     - service_init_status.stat.exists
 
-- name: Enable Galera Cluster Check Service
+- name: Restart XInetD Service
   service:
     name: xinetd
     enabled: yes
@@ -54,7 +54,7 @@
     - inventory_hostname != groups['galera_node'] | first
     - xinetd_service_info.stdout.find("not-found") == -1
 
-- name: Wait For Galera Cluster Check Service
+- name: Wait For Galera Cluster Check (XInetD) Service
   wait_for:
     host: "{{ galera_ip }}"
     port: 9200
@@ -64,3 +64,77 @@
     state: present
   when:
     - inventory_hostname != groups['galera_node'] | first
+
+- name: Reload Galera Service on Bootstrap Node
+  systemd:
+    daemon_reload: yes
+  when:
+    - service_init_status.stat.islnk is defined
+    - service_init_status.stat.islnk
+  run_once: true
+  
+- name: Get Galera Service Info on Bootstrap Node
+  shell: service mysql status | grep not-found || true
+  args:
+    warn: false
+  register: galera_service_info
+  when:
+    - service_init_status.stat.exists
+  run_once: true
+
+- name: Stop Galera Service on Bootstrap Node
+  service:
+    name: mysql
+    state: stopped
+  when:
+    - galera_service_info.stdout.find("not-found") == -1
+  run_once: true
+
+- name: Wait for 5 Seconds Before Killing All Galera Service on Bootstrap Node
+  wait_for:
+    timeout: 5
+  run_once: true
+
+- name: Kill All Galera Service on Bootstrap Node
+  shell: killall mysqld || true
+  args:
+    warn: false
+  run_once: true
+
+- name: Wait for 5 Seconds After Killing All Galera Service on Bootstrap Node
+  wait_for:
+    timeout: 5
+  run_once: true
+
+- name: Remove Stale PIDs & Sockets Galera Service on Bootstrap Node
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /var/run/mysqld/mysqld.pid
+    - /var/run/mysqld/mysqld.sock
+  run_once: true
+
+- name: Wait for 5 Seconds Before Enabling Galera Service on Bootstrap Node
+  wait_for:
+    timeout: 5
+  run_once: true
+
+- name: Enable Galera Service on Bootstrap Node
+  service:
+    name: mysql
+    enabled: yes
+    state: restarted
+  when:
+    - galera_service_info.stdout.find("not-found") == -1
+  run_once: true
+
+- name: Wait For Galera Service on Bootstrap Node
+  wait_for:
+    host: "{{ galera_ip }}"
+    port: 3306
+    timeout: 15
+    connect_timeout: 3
+    delay: 5
+    state: present
+  run_once: true

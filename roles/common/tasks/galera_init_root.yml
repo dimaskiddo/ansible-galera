@@ -1,6 +1,6 @@
 ---
 - name: Initiate Galera Database
-  shell: mysql_install_db --datadir=/var/lib/mysql --mysqld-file=$(which mysqld)
+  shell: mysql_install_db --datadir=/var/lib/mysql/data --mysqld-file=$(which mysqld)
   args:
     warn: false
 
@@ -13,7 +13,7 @@
     mode: 0644
 
 - name: Initiate Galera Root User
-  shell: mysqld --bootstrap --verbose=0 < /tmp/mysql_init_root.sql
+  shell: mysqld --bootstrap --verbose=0 --datadir=/var/lib/mysql/data < /tmp/mysql_init_root.sql
   args:
     warn: false
 

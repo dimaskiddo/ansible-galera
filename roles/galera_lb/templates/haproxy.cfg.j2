@@ -9,7 +9,7 @@ backend haproxy_status_backend
     mode http
     balance roundrobin
     stats uri /haproxy/stats
-    stats auth root:{{ galera_root_password }}
+    stats auth {{ galera_lb_username }}:{{ galera_lb_password }}
 
 # Galera Cluster Frontend configuration
 frontend galera_cluster_frontend

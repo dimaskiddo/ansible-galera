@@ -17,17 +17,23 @@ galera_root_password: 'root'
 # Default Value Galera Cluster Name
 galera_cluster_name: 'galera'
 
+# Default Value for Galera Load Balancer Username
+galera_lb_username: 'lb-username'
+
+# Default Value for Galera Load Balancer Password
+galera_lb_password: 'lb-password'
+
 # Default Value for ZFS Backend Storage
 zfs_backend: 'false'
-
-# Default Value for ZFS Block Wipe
-zfs_block_wipe: 'false'
 
 # Default Value for ZFS Pool Name
 zfs_pool_name: 'data'
 
+# Default Value for ZFS Dataset Wipe
+zfs_dataset_wipe: 'false'
+
 # Default Value for ZFS Pool Wipe
 zfs_pool_wipe: 'false'
 
-# Default Value for ZFS Dataset Wipe
-zfs_dataset_wipe: 'false'
+# Default Value for ZFS Block Wipe
+zfs_block_wipe: 'false'

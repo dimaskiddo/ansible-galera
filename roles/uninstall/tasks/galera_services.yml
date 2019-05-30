@@ -14,11 +14,27 @@
     state: stopped
   when:
     - galera_service_info.stdout.find("not-found") == -1
- 
+
+- name: Wait for 5 Seconds Before Killing All Galera Service
+  wait_for:
+    timeout: 5
+
 - name: Kill All Remaining Galera Service
   shell: killall mysqld || true
   args:
     warn: false
+
+- name: Wait for 5 Seconds After Killing All Galera Service
+  wait_for:
+    timeout: 5
+
+- name: Remove Stale PIDs & Sockets Galera Service
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /var/run/mysqld/mysqld.pid
+    - /var/run/mysqld/mysqld.sock
 
 - name: Reload Galera Service
   systemd:

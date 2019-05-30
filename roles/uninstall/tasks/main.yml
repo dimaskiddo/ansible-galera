@@ -42,6 +42,11 @@
     - full_uninstall
     - inventory_hostname in groups['galera_node']
 
+- include: xinetd_services.yml
+  when:
+    - full_uninstall
+    - inventory_hostname in groups['galera_node']
+
 - include: zfs_blocks.yml
   when:
     - full_uninstall

@@ -4,6 +4,7 @@
     path: "{{ item }}"
     state: absent
   with_items:
+    - /etc/mysql/conf.d
     - /etc/mysql
 
 - name: Remove Galera Run Directory
@@ -13,16 +14,13 @@
   with_items:
     - /var/run/mysqld
 
-- name: Remove Galera Logs File
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - /var/log/mysqld.log
-
 - name: Remove Galera Databases Directory
   file:
     path: "{{ item }}"
     state: absent
   with_items:
     - /var/lib/mysql
+    - /var/lib/mysql/bin
+    - /var/lib/mysql/data
+    - /var/lib/mysql/log
+    - /var/lib/mysql/tmp

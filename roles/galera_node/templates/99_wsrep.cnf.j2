@@ -1,0 +1,19 @@
+[mysqld]
+binlog_format = ROW
+
+innodb_flush_method = O_DIRECT
+innodb_flush_log_at_trx_commit = 0
+innodb_autoinc_lock_mode = 2
+
+wsrep_on = ON
+wsrep_slave_threads = {{ ansible_processor_vcpus * 2 }}
+
+wsrep_provider = /usr/lib/libgalera_smm.so
+wsrep_provider_options = "gcache.size=300M; gcache.page_size=300M; gcs.fc_factor=0.8; gcs.fc_limit={{ (ansible_processor_vcpus * 2) * 5 }}"
+
+wsrep_cluster_name = "{{ galera_cluster_name }}"
+wsrep_cluster_address = "gcomm://{% for galera_node_host in groups['galera_node'] %}{{ hostvars[galera_node_host].galera_ip }}{% if not loop.last %},{% endif %}{% endfor %}"
+
+wsrep_node_address = "{{ galera_ip }}"
+
+wsrep_sst_method = rsync

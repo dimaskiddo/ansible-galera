@@ -1,0 +1,18 @@
+---
+- name: Get XInetD Service Info
+  shell: service xinetd status | grep not-found || true
+  args:
+    warn: false
+  register: xinetd_service_info
+  when:
+    - inventory_hostname != groups['galera_node'] | first
+    - service_init_status.stat.exists
+
+- name: Restart XInetD Service
+  service:
+    name: xinetd
+    enabled: yes
+    state: restarted
+  when:
+    - inventory_hostname != groups['galera_node'] | first
+    - xinetd_service_info.stdout.find("not-found") == -1

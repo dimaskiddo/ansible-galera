@@ -37,7 +37,7 @@
   when:
     - galera_distribution == 'percona'
 
-- name: Install Galera Cluster Check Packages
+- name: Install XInetD Packages
   apt:
     name: "{{ item }}"
     force_apt_get: yes
@@ -47,7 +47,7 @@
   with_items:
     - xinetd
 
-- name: Install Galera Cluster Check Scripts
+- name: Install Galera Cluster Check Scripts (Binary)
   template:
     src: clustercheck.j2
     dest: /usr/bin/clustercheck
@@ -55,7 +55,7 @@
     group: root
     mode: 0755
 
-- name: Install Galera Cluster Check Configurations
+- name: Install Galera Cluster Check Scripts (XInetD)
   template:
     src: mysqlchk.j2
     dest: /etc/xinetd.d/mysqlchk
@@ -63,7 +63,7 @@
     group: root
     mode: 0644
 
-- name: Enable Galera Cluster Check as Know Services
+- name: Enable Galera Cluster Check as Known XInetD Services
   lineinfile:
     path: /etc/services
     insertafter: '^# Local services'

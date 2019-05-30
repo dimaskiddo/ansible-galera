@@ -1,0 +1,22 @@
+[mysqld]
+pid_file = /var/run/mysqld/mysqld.pid
+socket = /var/run/mysqld/mysqld.sock
+
+datadir = /var/lib/mysql/data
+tmpdir = /var/lib/mysql/tmp
+
+log_bin = /var/lib/mysql/bin/mysql-bin
+log_error = /var/lib/mysql/log/mysql-err.log
+general_log_file = /var/lib/mysql/log/mysql.log
+slow_query_log_file = /var/lib/mysql/log/mysql-slq.log
+
+ignore-db-dir = lost+found
+
+
+[mysqld_safe]
+pid_file = /var/run/mysqld/mysqld.pid
+socket = /var/run/mysqld/mysqld.sock
+
+
+[client]
+socket = /var/run/mysqld/mysqld.sock

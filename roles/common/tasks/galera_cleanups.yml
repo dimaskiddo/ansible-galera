@@ -1,17 +1,13 @@
 ---
-- name: Remove Exsisting Galera Databases
-  shell: rm -rf /var/lib/mysql/*
+- name: Remove Exsisting Galera Configurations
+  shell: rm -rf /etc/mysql/*
   args:
     warn: false
 
-- name: Remove Exsisting Galera Configurations
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - /etc/mysql/percona-xtradb-cluster.conf.d/wsrep.cnf
-  when:
-    - galera_distribution == 'percona'
+- name: Remove Exsisting Galera Databases Directory
+  shell: rm -rf /var/lib/mysql/*
+  args:
+    warn: false
 
 - name: Find Exsisting Galera Logs
   find:

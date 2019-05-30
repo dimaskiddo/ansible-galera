@@ -1,4 +1,21 @@
 ---
+- name: Disable Galera Cluster Check from Known XInetD Services
+  lineinfile:
+    path: /etc/services
+    insertafter: '^# Local services'
+    line: 'mysqlchk    9200/tcp      # MySQL Check'
+    state: absent
+
+- name: Uninstall Galera Cluster Check Scripts (XInetD)
+  file:
+    path: /etc/xinetd.d/mysqlchk
+    state: absent
+
+- name: Uninstall Galera Cluster Check Scripts (Binary)
+  file:
+    path: /usr/bin/clustercheck
+    state: absent
+
 - name: Uninstall Galera Packages
   apt:
     name: "{{ item }}"

@@ -16,22 +16,13 @@
     - service_init_status.stat.exists
   run_once: true
 
-- name: Boostrap Galera Cluster
+- name: Boostrap Galera Cluster on Bootstrap Node
   shell: service mysql bootstrap-pxc || true
   args:
     warn: false
   when:
     - galera_service_info.stdout.find("not-found") == -1
     - galera_distribution == 'percona'
-  run_once: true
-
-- name: Enable Galera Service on Bootstrap Node
-  service:
-    name: mysql
-    enabled: yes
-    state: started
-  when:
-    - galera_service_info.stdout.find("not-found") == -1
   run_once: true
 
 - name: Wait For Galera Service on Bootstrap Node
@@ -44,7 +35,7 @@
     state: present
   run_once: true
 
-- name: Get Galera Cluster Check Service Info on Bootstrap Node
+- name: Get XInetD Service Info on Bootstrap Node
   shell: service xinetd status | grep not-found || true
   args:
     warn: false
@@ -53,7 +44,7 @@
     - service_init_status.stat.exists
   run_once: true
 
-- name: Enable Galera Cluster Check Service on Bootstrap Node
+- name: Enable XInetD Service on Bootstrap Node
   service:
     name: xinetd
     enabled: yes
@@ -62,7 +53,7 @@
     - xinetd_service_info.stdout.find("not-found") == -1
   run_once: true
 
-- name: Wait For Galera Cluster Check Service on Bootstrap Node
+- name: Wait For Galera Cluster Check (XInetD) Service on Bootstrap Node
   wait_for:
     host: "{{ galera_ip }}"
     port: 9200

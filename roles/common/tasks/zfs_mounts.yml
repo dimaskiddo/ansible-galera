@@ -1,4 +1,8 @@
 ---
+- name: Wait for 5 Seconds Before Mounting ZFS Dataset
+  wait_for:
+    timeout: 5
+
 - name: Mount ZFS Dataset to Galera Directory
   mount:
     path: /var/lib/mysql
@@ -7,3 +11,7 @@
     opts: defaults
     passno: 2
     state: mounted
+
+- name: Wait for 5 Seconds After Mounting ZFS Dataset
+  wait_for:
+    timeout: 5

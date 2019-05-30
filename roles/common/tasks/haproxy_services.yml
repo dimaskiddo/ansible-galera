@@ -22,7 +22,15 @@
   when:
     - haproxy_service_info.stdout.find("not-found") == -1
 
+- name: Wait for 5 Seconds Before Killing All HAProxy Service
+  wait_for:
+    timeout: 5
+
 - name: Kill All Remaining HAProxy Service
   shell: killall haproxy || true
   args:
     warn: false
+
+- name: Wait for 5 Seconds After Killing All HAProxy Service
+  wait_for:
+    timeout: 5

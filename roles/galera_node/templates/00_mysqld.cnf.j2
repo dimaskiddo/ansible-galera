@@ -1,0 +1,7 @@
+[mysqld]
+server_id = {{ groups['galera_node'].index(inventory_hostname) + 1 }}
+
+general_log = ON
+slow_query_log = ON
+
+performance_schema = OFF

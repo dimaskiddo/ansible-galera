@@ -1,24 +1,56 @@
 ---
-- name: Generate Galera Networks Configuration
+- name: Generate Galera MySQL Configuration
   template:
-    src: networks.cnf.j2
-    dest: /etc/mysql/conf.d/networks.cnf
+    src: my.cnf.j2
+    dest: /etc/mysql/my.cnf
     owner: root
     group: root
     mode: 0644
 
-- name: Generate Galera Tunning Configuration
+- name: Generate Galera MySQL Client Configuration
   template:
-    src: tunning.cnf.j2
-    dest: /etc/mysql/conf.d/tunning.cnf
+    src: 00_client.cnf.j2
+    dest: /etc/mysql/conf.d/00_client.cnf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Generate Galera MySQL Daemon Configuration
+  template:
+    src: 00_mysqld.cnf.j2
+    dest: /etc/mysql/conf.d/00_mysqld.cnf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Generate Galera Networks Configuration
+  template:
+    src: 96_networks.cnf.j2
+    dest: /etc/mysql/conf.d/96_networks.cnf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Generate Galera Storages Configuration
+  template:
+    src: 97_storages.cnf.j2
+    dest: /etc/mysql/conf.d/97_storages.cnf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Generate Galera Tunnings Configuration
+  template:
+    src: 98_tunnings.cnf.j2
+    dest: /etc/mysql/conf.d/98_tunnings.cnf
     owner: root
     group: root
     mode: 0644
 
 - name: Generate Galera WSREP Configuration
   template:
-    src: wsrep.cnf.j2
-    dest: /etc/mysql/conf.d/wsrep.cnf
+    src: 99_wsrep.cnf.j2
+    dest: /etc/mysql/conf.d/99_wsrep.cnf
     owner: root
     group: root
     mode: 0644
