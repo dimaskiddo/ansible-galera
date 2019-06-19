@@ -11,8 +11,8 @@
 
 - include: haproxy_packages.yml
   when:
-    - full_uninstall
     - inventory_hostname in groups['galera_lb']
+    - full_uninstall
 
 - include: galera_services.yml
   when:
@@ -24,9 +24,9 @@
 
 - include: zfs_mounts.yml
   when:
-    - full_uninstall
-    - zfs_backend
     - inventory_hostname in groups['galera_node']
+    - zfs_backend
+    - full_uninstall
 
 - include: galera_directories.yml
   when:
@@ -34,23 +34,23 @@
 
 - include: galera_packages.yml
   when:
-    - full_uninstall
     - inventory_hostname in groups['galera_node']
+    - full_uninstall
 
 - include: galera_users.yml
   when:
-    - full_uninstall
     - inventory_hostname in groups['galera_node']
+    - full_uninstall
 
 - include: xinetd_services.yml
   when:
-    - full_uninstall
     - inventory_hostname in groups['galera_node']
+    - full_uninstall
 
 - include: zfs_blocks.yml
   when:
-    - full_uninstall
-    - zfs_backend
     - inventory_hostname in groups['galera_node']
+    - zfs_backend
+    - full_uninstall
 
 - include: os_cleanups.yml
